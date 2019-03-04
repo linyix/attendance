@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.AttendancesMapper">
+  <resultMap id="BaseResultMap" type="pojo.Attendances">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="check_in" jdbcType="TIMESTAMP" property="checkIn" />
+    <result column="check_out" jdbcType="TIMESTAMP" property="checkOut" />
+    <result column="schedules_id" jdbcType="INTEGER" property="schedulesId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, employee_id, check_in, check_out, schedules_id
+  </sql>
+  <select id="selectByExample" parameterType="pojo.AttendancesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from attendances
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attendances
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from attendances
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Attendances" useGeneratedKeys="true">
+    insert into attendances (employee_id, check_in, check_out, 
+      schedules_id)
+    values (#{employeeId,jdbcType=INTEGER}, #{checkIn,jdbcType=TIMESTAMP}, #{checkOut,jdbcType=TIMESTAMP}, 
+      #{schedulesId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Attendances" useGeneratedKeys="true">
+    insert into attendances
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="checkIn != null">
+        check_in,
+      </if>
+      <if test="checkOut != null">
+        check_out,
+      </if>
+      <if test="schedulesId != null">
+        schedules_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="checkIn != null">
+        #{checkIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkOut != null">
+        #{checkOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schedulesId != null">
+        #{schedulesId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Attendances">
+    update attendances
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="checkIn != null">
+        check_in = #{checkIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkOut != null">
+        check_out = #{checkOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schedulesId != null">
+        schedules_id = #{schedulesId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Attendances">
+    update attendances
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      check_in = #{checkIn,jdbcType=TIMESTAMP},
+      check_out = #{checkOut,jdbcType=TIMESTAMP},
+      schedules_id = #{schedulesId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
