@@ -20,7 +20,14 @@ public class EmployeeService {
     public List<Employee> list()
     {
         EmployeeExample employeeExample = new EmployeeExample();
+        EmployeeExample.Criteria criteria = employeeExample.createCriteria();
+        criteria.andIsDeletedNotEqualTo(true);
         return employeeMapper.selectByExample(employeeExample);
+
+    }
+
+    public void delete()
+    {
 
     }
 }
