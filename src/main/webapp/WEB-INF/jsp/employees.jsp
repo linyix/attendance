@@ -6,68 +6,132 @@
 
 
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="/classes">班级管理 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/student">学生管理</a></li>
 
-            </ul>
-        </div>
+<div class="workingArea">
 
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-            <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">学生管理系统</a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-
-                            <li><a href="#">上市</a></li>
-                            <li><a href="/administor/signout">注销</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!--
-
-            -->
-            <h2 class="sub-header">班级列表 <button id="toAddClasses"style="margin-left: 58%" type="button"  class="btn btn-lg btn-primary">添加班级</button>
-                <button style="margin-left: 5%" type="button"  class="btn btn-lg btn-danger" onclick="javascritp:del();">删除选中</button>
-            </h2>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>班级编号</th>
-                        <th>班级名称</th>
-                        <th>学生数量</th>
-                        <th>编辑</th>
-                        <th><label style="margin-bottom: 0px"><input type="checkbox" onclick="ckAll()" id="allChecks" >全选</label></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div>
+        <form method="post" id="listForm" action="trainlist" >
+            姓名 &nbsp;<input  style="margin-right:4%;width: 10%;display: inline-block" name="name" type="text" class="form-control">
+            所在部门&nbsp;
+            <select id="classesid" style="margin-right:4%;width: 10%;display: inline-block" type="text" name="department" class="form-control">
+                <option selected="selected"  value=''></option>
+                <c:forEach items="${departments}" var="department">
+                    <option value="${department.id}" <c:if test="${!empty classes}"> <c:if test="${klass.id eq classes.id}">selected</c:if> </c:if> > ${department.name}</option>
+                </c:forEach>
+            </select>
+            工号&nbsp;<input  style="margin-right:4%;width: 10%;display: inline-block" name="number" type="text" class="form-control">
+            <button  type="submit" class="btn btn-success">查找</button>
+        </form>
     </div>
+    <br>
+    <br>
+    <div class="listDataTableDiv">
+        <table class="table table-striped table-bordered table-hover  table-condensed bllu">
+            <thead>
+            <tr class="success">
+                <th>工号</th>
+                <th>姓名</th>
+                <th>所在部门</th>
+                <th>操作</th>
+                <th><label style="margin-bottom: 0px"><input type="checkbox" onclick="ckAll()" id="allChecks" >全选</label></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${vos}" var="c">
+
+                <tr>
+                    <td>${c.objs["employee"].number}</td>
+                    <td>${c.objs["employee"].name} </td>
+                    <td>${c.objs["department"].name}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal " id="editModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="editError" style="display: none" class="alert alert-danger" >
+                        <span class="errorMessage"></span>
+                    </div>
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">编辑员工</h4>
+                </div>
+                <form >
+                    <div class="modal-body">
+                        <p>员工工号 <input id="editnumber" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工姓名 <input id="editname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+
+                        <p>员工部门 <select id="editdepartment" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <c:forEach items="${classList}" var="klass">
+                                <option value="${klass.id}" <c:if test="${!empty classes}"><c:if test="${klass.id eq classes.id}">selected</c:if> </c:if>> ${klass.name}</option>
+                            </c:forEach>
+                        </select>
+                        </p>
+
+                        <p>员工性别 <select id="editsex" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <option value="1">男</option>
+                            <option value="0">女</option>
+                        </select>
+                        </p>
+                        <p>学生年龄 <input id="age" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>地址</p>
+                        <textarea id="address" class="form-control"></textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                        <button class="btn btn-primary" id="addStudent" type="button">提交</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal " id="addModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="studentError" style="display: none" class="alert alert-danger" >
+                        <span class="errorMessage"></span>
+                    </div>
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">添加员工</h4>
+                </div>
+                <form >
+                    <div class="modal-body">
+                        <p>员工姓名 <input id="addnumber" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工姓名 <input id="addname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+
+                        <p>员工部门 <select id="classesid" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <c:forEach items="${classList}" var="klass">
+                                <option value="${klass.id}" <c:if test="${!empty classes}"><c:if test="${klass.id eq classes.id}">selected</c:if> </c:if>> ${klass.name}</option>
+                            </c:forEach>
+                        </select>
+                        </p>
+                        <p>学生性别 <select id="sex" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <option value="1">男</option>
+                            <option value="0">女</option>
+                        </select>
+                        </p>
+                        <p>学生年龄 <input id="age" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>地址</p>
+                        <textarea id="address" class="form-control"></textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                        <button class="btn btn-primary" id="addStudent" type="button">提交</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+
+
+
+
 </div>

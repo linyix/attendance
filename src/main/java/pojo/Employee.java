@@ -5,7 +5,7 @@ import java.util.Date;
 public class Employee {
     private Integer id;
 
-    private Integer number;
+    private String number;
 
     private String password;
 
@@ -33,12 +33,12 @@ public class Employee {
         this.id = id;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 
     public String getPassword() {

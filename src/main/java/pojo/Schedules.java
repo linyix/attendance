@@ -11,8 +11,6 @@ public class Schedules {
 
     private Date clazzDate;
 
-    private Boolean isDeleted;
-
     public Integer getId() {
         return id;
     }
@@ -43,13 +41,5 @@ public class Schedules {
 
     public void setClazzDate(Date clazzDate) {
         this.clazzDate = clazzDate;
-    }
-
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
     }
 }

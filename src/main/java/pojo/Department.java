@@ -5,6 +5,8 @@ public class Department {
 
     private String name;
 
+    private Boolean isDeleted;
+
     public Integer getId() {
         return id;
     }
@@ -19,5 +21,13 @@ public class Department {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

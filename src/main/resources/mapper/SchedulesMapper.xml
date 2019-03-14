@@ -6,7 +6,6 @@
     <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
     <result column="clazz_id" jdbcType="INTEGER" property="clazzId" />
     <result column="clazz_date" jdbcType="DATE" property="clazzDate" />
-    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -38,7 +37,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_id, clazz_id, clazz_date, is_deleted
+    id, employee_id, clazz_id, clazz_date
   </sql>
   <select id="selectByExample" parameterType="pojo.SchedulesExample" resultMap="BaseResultMap">
     select
@@ -66,10 +65,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Schedules" useGeneratedKeys="true">
-    insert into schedules (employee_id, clazz_id, clazz_date, 
-      is_deleted)
-    values (#{employeeId,jdbcType=INTEGER}, #{clazzId,jdbcType=INTEGER}, #{clazzDate,jdbcType=DATE}, 
-      #{isDeleted,jdbcType=BIT})
+    insert into schedules (employee_id, clazz_id, clazz_date
+      )
+    values (#{employeeId,jdbcType=INTEGER}, #{clazzId,jdbcType=INTEGER}, #{clazzDate,jdbcType=DATE}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Schedules" useGeneratedKeys="true">
     insert into schedules
@@ -83,9 +82,6 @@
       <if test="clazzDate != null">
         clazz_date,
       </if>
-      <if test="isDeleted != null">
-        is_deleted,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="employeeId != null">
@@ -96,9 +92,6 @@
       </if>
       <if test="clazzDate != null">
         #{clazzDate,jdbcType=DATE},
-      </if>
-      <if test="isDeleted != null">
-        #{isDeleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -114,9 +107,6 @@
       <if test="clazzDate != null">
         clazz_date = #{clazzDate,jdbcType=DATE},
       </if>
-      <if test="isDeleted != null">
-        is_deleted = #{isDeleted,jdbcType=BIT},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -124,8 +114,7 @@
     update schedules
     set employee_id = #{employeeId,jdbcType=INTEGER},
       clazz_id = #{clazzId,jdbcType=INTEGER},
-      clazz_date = #{clazzDate,jdbcType=DATE},
-      is_deleted = #{isDeleted,jdbcType=BIT}
+      clazz_date = #{clazzDate,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

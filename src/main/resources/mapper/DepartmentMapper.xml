@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="pojo.Department">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -35,7 +36,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name
+    id, name, is_deleted
   </sql>
   <select id="selectByExample" parameterType="pojo.DepartmentExample" resultMap="BaseResultMap">
     select
@@ -63,8 +64,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Department" useGeneratedKeys="true">
-    insert into department (name)
-    values (#{name,jdbcType=VARCHAR})
+    insert into department (name, is_deleted)
+    values (#{name,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Department" useGeneratedKeys="true">
     insert into department
@@ -72,10 +73,16 @@
       <if test="name != null">
         name,
       </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -85,12 +92,16 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="pojo.Department">
     update department
-    set name = #{name,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

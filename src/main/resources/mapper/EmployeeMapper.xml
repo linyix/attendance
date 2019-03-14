@@ -3,7 +3,7 @@
 <mapper namespace="mapper.EmployeeMapper">
   <resultMap id="BaseResultMap" type="pojo.Employee">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
@@ -77,7 +77,7 @@
       sex, birthday, telephone, 
       email, notes, department_id, 
       is_deleted)
-    values (#{number,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+    values (#{number,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, #{telephone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, 
       #{isDeleted,jdbcType=BIT})
@@ -118,7 +118,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="number != null">
-        #{number,jdbcType=INTEGER},
+        #{number,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -153,7 +153,7 @@
     update employee
     <set>
       <if test="number != null">
-        number = #{number,jdbcType=INTEGER},
+        number = #{number,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -187,7 +187,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="pojo.Employee">
     update employee
-    set number = #{number,jdbcType=INTEGER},
+    set number = #{number,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},

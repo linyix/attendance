@@ -3,6 +3,7 @@
 <mapper namespace="mapper.ClazzMapper">
   <resultMap id="BaseResultMap" type="pojo.Clazz">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="department_id" jdbcType="INTEGER" property="departmentId" />
     <result column="start_time" jdbcType="TIME" property="startTime" />
     <result column="end_time" jdbcType="TIME" property="endTime" />
@@ -40,7 +41,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, department_id, start_time, end_time, bf_start, af_end, is_deleted
+    id, name, department_id, start_time, end_time, bf_start, af_end, is_deleted
   </sql>
   <select id="selectByExample" parameterType="pojo.ClazzExample" resultMap="BaseResultMap">
     select
@@ -68,16 +69,19 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Clazz" useGeneratedKeys="true">
-    insert into clazz (department_id, start_time, end_time, 
-      bf_start, af_end, is_deleted
-      )
-    values (#{departmentId,jdbcType=INTEGER}, #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, 
-      #{bfStart,jdbcType=INTEGER}, #{afEnd,jdbcType=INTEGER}, #{isDeleted,jdbcType=BIT}
-      )
+    insert into clazz (name, department_id, start_time, 
+      end_time, bf_start, af_end, 
+      is_deleted)
+    values (#{name,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{startTime,jdbcType=TIME}, 
+      #{endTime,jdbcType=TIME}, #{bfStart,jdbcType=INTEGER}, #{afEnd,jdbcType=INTEGER}, 
+      #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Clazz" useGeneratedKeys="true">
     insert into clazz
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
       <if test="departmentId != null">
         department_id,
       </if>
@@ -98,6 +102,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="departmentId != null">
         #{departmentId,jdbcType=INTEGER},
       </if>
@@ -121,6 +128,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="pojo.Clazz">
     update clazz
     <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="departmentId != null">
         department_id = #{departmentId,jdbcType=INTEGER},
       </if>
@@ -144,7 +154,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="pojo.Clazz">
     update clazz
-    set department_id = #{departmentId,jdbcType=INTEGER},
+    set name = #{name,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIME},
       end_time = #{endTime,jdbcType=TIME},
       bf_start = #{bfStart,jdbcType=INTEGER},

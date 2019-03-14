@@ -12,11 +12,7 @@ import java.util.List;
 public class EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
-/*
-    public Employee get(int id)
-    {
 
-    }*/
     public List<Employee> list()
     {
         EmployeeExample employeeExample = new EmployeeExample();
@@ -28,6 +24,12 @@ public class EmployeeService {
 
     public void delete()
     {
+
+    }
+
+    public int add(Employee employee)
+    {
+        return employeeMapper.insertSelective(employee);
 
     }
 }
