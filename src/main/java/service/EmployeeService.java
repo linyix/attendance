@@ -32,4 +32,9 @@ public class EmployeeService {
         return employeeMapper.insertSelective(employee);
 
     }
+
+    public Employee get(int id)
+    {
+        return employeeMapper.selectByPrimaryKey(id);
+    }
 }

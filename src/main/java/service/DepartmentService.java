@@ -21,7 +21,7 @@ public class DepartmentService {
     public List<Department> list()
     {
         DepartmentExample departmentExample = new DepartmentExample();
-        departmentExample.createCriteria().andIdNotEqualTo(0);
+        departmentExample.createCriteria().andIdNotEqualTo(0).andIsDeletedEqualTo(false);
         return departmentMapper.selectByExample(departmentExample);
     }
 }

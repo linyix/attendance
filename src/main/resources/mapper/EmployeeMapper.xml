@@ -7,9 +7,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="notes" jdbcType="VARCHAR" property="notes" />
     <result column="department_id" jdbcType="INTEGER" property="departmentId" />
     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
@@ -44,8 +42,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, number, password, name, sex, birthday, telephone, email, notes, department_id, 
-    is_deleted
+    id, number, password, name, sex, telephone, notes, department_id, is_deleted
   </sql>
   <select id="selectByExample" parameterType="pojo.EmployeeExample" resultMap="BaseResultMap">
     select
@@ -74,13 +71,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Employee" useGeneratedKeys="true">
     insert into employee (number, password, name, 
-      sex, birthday, telephone, 
-      email, notes, department_id, 
-      is_deleted)
+      sex, telephone, notes, 
+      department_id, is_deleted)
     values (#{number,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, #{telephone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, 
-      #{isDeleted,jdbcType=BIT})
+      #{sex,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{departmentId,jdbcType=INTEGER}, #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Employee" useGeneratedKeys="true">
     insert into employee
@@ -97,14 +92,8 @@
       <if test="sex != null">
         sex,
       </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
       <if test="telephone != null">
         telephone,
-      </if>
-      <if test="email != null">
-        email,
       </if>
       <if test="notes != null">
         notes,
@@ -129,14 +118,8 @@
       <if test="sex != null">
         #{sex,jdbcType=INTEGER},
       </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
       <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
       </if>
       <if test="notes != null">
         #{notes,jdbcType=VARCHAR},
@@ -164,14 +147,8 @@
       <if test="sex != null">
         sex = #{sex,jdbcType=INTEGER},
       </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
-      </if>
       <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="notes != null">
         notes = #{notes,jdbcType=VARCHAR},
@@ -191,9 +168,7 @@
       password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
-      birthday = #{birthday,jdbcType=DATE},
       telephone = #{telephone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
       notes = #{notes,jdbcType=VARCHAR},
       department_id = #{departmentId,jdbcType=INTEGER},
       is_deleted = #{isDeleted,jdbcType=BIT}

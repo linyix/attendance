@@ -1,7 +1,5 @@
 package pojo;
 
-import java.util.Date;
-
 public class Employee {
     private Integer id;
 
@@ -13,11 +11,7 @@ public class Employee {
 
     private Integer sex;
 
-    private Date birthday;
-
     private String telephone;
-
-    private String email;
 
     private String notes;
 
@@ -65,28 +59,12 @@ public class Employee {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
     public String getTelephone() {
         return telephone;
     }
 
     public void setTelephone(String telephone) {
         this.telephone = telephone == null ? null : telephone.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
     }
 
     public String getNotes() {
