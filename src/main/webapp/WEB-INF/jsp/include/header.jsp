@@ -76,7 +76,22 @@ $(function(){
 		}
 	});
 })
-</script>	
+</script>
+
+	<style type="text/css">
+		/*IE 10 */
+		.myschedule select::-ms-expand{
+			display: none;
+		}
+		.myschedule select{
+			/* Chrome */
+			-webkit-appearance: none;
+			/* Firefox */
+			-moz-appearance: none;
+			text-indent: 0.01px;
+			text-overflow: ' '; /* space */
+		}
+	</style>
 </head>
 <body>
 

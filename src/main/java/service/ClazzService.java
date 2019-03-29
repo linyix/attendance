@@ -8,6 +8,7 @@ import pojo.Clazz;
 import pojo.ClazzExample;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ClazzService {
@@ -23,5 +24,12 @@ public class ClazzService {
         ClazzExample clazzExample = new ClazzExample();
         clazzMapper.selectByExample(clazzExample);
         return clazzMapper.selectByPrimaryKey(1);
+    }
+
+    public List<Clazz> list(int did)
+    {
+        ClazzExample clazzExample = new ClazzExample();
+        clazzExample.createCriteria().andDepartmentIdEqualTo(did).andIsDeletedEqualTo(false);
+        return clazzMapper.selectByExample(clazzExample);
     }
 }

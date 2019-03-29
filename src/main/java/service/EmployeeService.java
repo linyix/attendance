@@ -33,8 +33,30 @@ public class EmployeeService {
 
     }
 
+    public void update(Employee employee)
+    {
+        employeeMapper.updateByPrimaryKey(employee);
+    }
+
     public Employee get(int id)
     {
         return employeeMapper.selectByPrimaryKey(id);
     }
+
+    public List<Employee> getByNumber(String number)
+    {
+        EmployeeExample employeeExample = new EmployeeExample();
+        employeeExample.createCriteria().andNumberEqualTo(number).andIsDeletedEqualTo(false);
+        return employeeMapper.selectByExample(employeeExample);
+    }
+
+    public List<Employee> listByDepartmentId(int did)
+    {
+        EmployeeExample employeeExample = new EmployeeExample();
+        employeeExample.createCriteria().andIsDeletedEqualTo(false).andDepartmentIdEqualTo(did);
+        return employeeMapper.selectByExample(employeeExample);
+    }
 }
+
+
+
