@@ -7,6 +7,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="notes" jdbcType="VARCHAR" property="notes" />
     <result column="department_id" jdbcType="INTEGER" property="departmentId" />
@@ -42,7 +43,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, number, password, name, sex, telephone, notes, department_id, is_deleted
+    id, number, password, name, sex, email, telephone, notes, department_id, is_deleted
   </sql>
   <select id="selectByExample" parameterType="pojo.EmployeeExample" resultMap="BaseResultMap">
     select
@@ -71,11 +72,13 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Employee" useGeneratedKeys="true">
     insert into employee (number, password, name, 
-      sex, telephone, notes, 
-      department_id, is_deleted)
+      sex, email, telephone, 
+      notes, department_id, is_deleted
+      )
     values (#{number,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
-      #{departmentId,jdbcType=INTEGER}, #{isDeleted,jdbcType=BIT})
+      #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{isDeleted,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Employee" useGeneratedKeys="true">
     insert into employee
@@ -91,6 +94,9 @@
       </if>
       <if test="sex != null">
         sex,
+      </if>
+      <if test="email != null">
+        email,
       </if>
       <if test="telephone != null">
         telephone,
@@ -117,6 +123,9 @@
       </if>
       <if test="sex != null">
         #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
@@ -147,6 +156,9 @@
       <if test="sex != null">
         sex = #{sex,jdbcType=INTEGER},
       </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
       <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
       </if>
@@ -168,6 +180,7 @@
       password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       notes = #{notes,jdbcType=VARCHAR},
       department_id = #{departmentId,jdbcType=INTEGER},

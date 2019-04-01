@@ -7,6 +7,8 @@ public class Manage {
 
     private Integer departmentId;
 
+    private Integer level;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Manage {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

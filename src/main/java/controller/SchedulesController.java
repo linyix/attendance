@@ -59,15 +59,6 @@ public class SchedulesController {
             {
                 Calendar calendar1 = new GregorianCalendar();
                 calendar1.setTime(dd);
-                if(dd.compareTo(today)>=0)
-                {
-                    canBeEdited.add(true);
-                }
-                else
-                {
-                    canBeEdited.add(false);
-                }
-
                 List<Schedules> ss = schedulesService.getByEidAndStartDate(e.getId(),dd);
 
                 if(ss.size()==0)
@@ -78,6 +69,15 @@ public class SchedulesController {
                 {
                     schedules.add(ss.get(0));
                 }
+                if(dd.compareTo(today)>=0)
+                {
+                    canBeEdited.add(true);
+                }
+                else
+                {
+                    canBeEdited.add(false);
+                }
+
             }
             vos.add(viewObject);
             model.addAttribute("vos",vos);

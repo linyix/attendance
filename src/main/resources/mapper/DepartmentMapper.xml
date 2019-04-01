@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -36,7 +37,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, is_deleted
+    id, name, is_deleted, parent_id
   </sql>
   <select id="selectByExample" parameterType="pojo.DepartmentExample" resultMap="BaseResultMap">
     select
@@ -64,8 +65,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Department" useGeneratedKeys="true">
-    insert into department (name, is_deleted)
-    values (#{name,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT})
+    insert into department (name, is_deleted, parent_id
+      )
+    values (#{name,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Department" useGeneratedKeys="true">
     insert into department
@@ -76,6 +79,9 @@
       <if test="isDeleted != null">
         is_deleted,
       </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -83,6 +89,9 @@
       </if>
       <if test="isDeleted != null">
         #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -95,13 +104,17 @@
       <if test="isDeleted != null">
         is_deleted = #{isDeleted,jdbcType=BIT},
       </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="pojo.Department">
     update department
     set name = #{name,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=BIT}
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      parent_id = #{parentId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

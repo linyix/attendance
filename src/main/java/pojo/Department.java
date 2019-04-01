@@ -7,6 +7,8 @@ public class Department {
 
     private Boolean isDeleted;
 
+    private Integer parentId;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Department {
 
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 }

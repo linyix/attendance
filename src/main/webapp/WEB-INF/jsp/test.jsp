@@ -5,9 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layout 后台大布局 - Layui</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script src="/js/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
+    <SCRIPT LANGUAGE="JavaScript">
+        var zTreeObj;
+        // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+        var setting = {
+            view :{
+                showIcon:false
+            }
+        };
+        // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+        var zNodes = [
+            {name:"test1", open:true, children:[
+                    {name:"test1_1"}, {name:"test1_2"}]},
+            {name:"test2", open:true, children:[
+                    {name:"test2_1"}, {name:"test2_2"}]}
+        ];
+        $(document).ready(function(){
+            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        });
+    </SCRIPT>
 </head>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
+<div class="layui-layout layui-layout-admin" >
     <div class="layui-header">
         <div class="layui-logo">layui 后台布局</div>
         <!-- 头部区域（可配合layui已有的水平导航）
@@ -71,8 +93,12 @@
         <!--
         <iframe src="employee" name="iframe_a" style="width: 100%;height: 100%;border-width: 0"></iframe>
         -->
+
+        <!--
         <table id="demo" lay-filter="test"></table>
-    </div>
+
+        -->
+        <ul id="treeDemo" class="ztree"></ul>
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->

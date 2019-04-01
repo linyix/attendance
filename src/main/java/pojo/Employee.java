@@ -11,6 +11,8 @@ public class Employee {
 
     private Integer sex;
 
+    private String email;
+
     private String telephone;
 
     private String notes;
@@ -57,6 +59,14 @@ public class Employee {
 
     public void setSex(Integer sex) {
         this.sex = sex;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getTelephone() {

@@ -19,7 +19,6 @@ public class EmployeeService {
         EmployeeExample.Criteria criteria = employeeExample.createCriteria();
         criteria.andIsDeletedNotEqualTo(true);
         return employeeMapper.selectByExample(employeeExample);
-
     }
 
     public void delete()
@@ -51,6 +50,12 @@ public class EmployeeService {
     }
 
     public List<Employee> listByDepartmentId(int did)
+    {
+        EmployeeExample employeeExample = new EmployeeExample();
+        employeeExample.createCriteria().andIsDeletedEqualTo(false).andDepartmentIdEqualTo(did);
+        return employeeMapper.selectByExample(employeeExample);
+    }
+    public List<Employee> listByDepartmentIdLimited(int did,int page,int limit)
     {
         EmployeeExample employeeExample = new EmployeeExample();
         employeeExample.createCriteria().andIsDeletedEqualTo(false).andDepartmentIdEqualTo(did);

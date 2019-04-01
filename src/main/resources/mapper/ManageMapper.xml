@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
     <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="level" jdbcType="INTEGER" property="level" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -36,7 +37,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_id, department_id
+    id, employee_id, department_id, level
   </sql>
   <select id="selectByExample" parameterType="pojo.ManageExample" resultMap="BaseResultMap">
     select
@@ -64,8 +65,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Manage" useGeneratedKeys="true">
-    insert into manage (employee_id, department_id)
-    values (#{employeeId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER})
+    insert into manage (employee_id, department_id, level
+      )
+    values (#{employeeId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Manage" useGeneratedKeys="true">
     insert into manage
@@ -76,6 +79,9 @@
       <if test="departmentId != null">
         department_id,
       </if>
+      <if test="level != null">
+        level,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="employeeId != null">
@@ -83,6 +89,9 @@
       </if>
       <if test="departmentId != null">
         #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -95,13 +104,17 @@
       <if test="departmentId != null">
         department_id = #{departmentId,jdbcType=INTEGER},
       </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="pojo.Manage">
     update manage
     set employee_id = #{employeeId,jdbcType=INTEGER},
-      department_id = #{departmentId,jdbcType=INTEGER}
+      department_id = #{departmentId,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
