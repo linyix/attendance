@@ -22,4 +22,24 @@ public class SchedulesService {
         schedulesExample.createCriteria().andClazzDateEqualTo(s).andEmployeeIdEqualTo(eid);
         return schedulesMapper.selectByExample(schedulesExample);
     }
+
+    public void changeSchedules(Date date,int eid,int cid)
+    {
+        SchedulesExample schedulesExample = new SchedulesExample();
+        schedulesExample.createCriteria().andClazzDateEqualTo(date).andEmployeeIdEqualTo(eid);
+        List<Schedules> scheduleses = schedulesMapper.selectByExample(schedulesExample);
+        for(Schedules schedules:scheduleses)
+        {
+            schedulesMapper.deleteByPrimaryKey(schedules.getId());
+        }
+        if(cid!=-1)
+        {
+            Schedules schedules = new Schedules();
+            schedules.setClazzDate(date);
+            schedules.setClazzId(cid);
+            schedules.setEmployeeId(eid);
+            schedulesMapper.insert(schedules);
+        }
+
+    }
 }

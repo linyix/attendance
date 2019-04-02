@@ -90,15 +90,13 @@
     </div>
 
     <div class="layui-body">
-        <!--
-        <iframe src="employee" name="iframe_a" style="width: 100%;height: 100%;border-width: 0"></iframe>
-        -->
+        <iframe src="department" name="iframe_a" style="width: 100%;height: 100%;border-width: 0"></iframe>
 
         <!--
         <table id="demo" lay-filter="test"></table>
-
-        -->
         <ul id="treeDemo" class="ztree"></ul>
+        -->
+
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->

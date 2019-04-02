@@ -17,14 +17,22 @@
 	<link rel="stylesheet" href="/layui/css/layui.css">
 	<script src="/layui/layui.js"></script>
 
-	<link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
+	<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="/ztree/js/jquery.ztree.core.js"></script>
 
 </head>
 
 
 	<style type="text/css">
 		/*IE 10 */
+		.myschedule {
+			border-color: rgba(0,0,0,.12);
+			text-align: center;
+			width: 70%;
+			margin:10%;
+			font-size:13px;
+			color: rgba(0,0,0,.65);
+		}
 		.myschedule select::-ms-expand{
 			display: none;
 		}
@@ -35,6 +43,18 @@
 			-moz-appearance: none;
 			text-indent: 0.01px;
 			text-overflow: ' '; /* space */
+			width:100%;
+			border-width: 0;
+			text-align:center;
+			text-align-last: center;
+			text-align-all: center;
+			color:rgba(0,0,0,.65);
+		}
+		.myschedule option{
+			text-align: center;
+		}
+		.myschedule td{
+			background-color: #eee;
 		}
 	</style>
 </head>

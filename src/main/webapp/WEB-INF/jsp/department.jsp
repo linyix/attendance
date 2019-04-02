@@ -70,17 +70,53 @@
                 table.reload("demo",{});
             }
         });
+        form.verify({
+            firstpwd: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ] ,
+            secondpwd: function(value) {
+                console.log("sc");
+                console.log(value);
+                console.log($("#addpassword").val());
+                if(value != $("#addpassword").val()){
+                    $("#addpassword2").val("");
+                    return '确认密码与密码不一致';
+                }
+            },
+            numberalone:function (value) {
+                console.log("nl");
+                console.log(value);
+                var numberaloneresult;
+                $.post(
+                    "/employee/numberalone",{"number":value},
+                    function(result) {
+                        console.log(result);
+                        numberaloneresult=result;
+                    }
+                );
+                console.log("numb");
+                console.log(numberaloneresult);
+                if(numberaloneresult == "fail")
+                {
 
+                    return "该工号已被使用"
+                }
+
+            }
+        });
         form.on('submit(save)', function (data) {
             var page = "/employee";
             $.post(
                 page,
                 {   "name":$("#addname").val(),"number":$("#addnumber").val(),"notes":$("#addnotes").val(),
-                    "telephone":$("#addtelephone").val(),"password":$("#addpassword").val(),"sex":$("#addsex option:selected").val(),
+                    "telephone":$("#addtelephone").val(),"email":$("#addemail").val(),
+                    "password":$("#addpassword").val(),"sex":$("#addsex option:selected").val(),
                     "departmentId":chooseDid},
                 function(result) {
                     if ("success" == result) {
                         tableIns.reload( {});
+                        layer.close(addIndex);
                     }
                     else {
                         layer.msg(result);
@@ -97,7 +133,7 @@
         console.log(chooseNode.name);
         $("#adddepartment").val(chooseNode.name);
         console.log($("#adddepartment").val());
-        layer.open({
+        addIndex= layer.open({
             type: 1,
             title:"新建配置",
             closeBtn: false,
@@ -166,25 +202,25 @@
         <div class="layui-form-item " >
             <label class="layui-form-label"  >员工工号</label>
             <div class="layui-input-block">
-                <input type="text" id="addnumber" name="addnumber" required value=""   lay-verify="required" placeholder="请输入员工工号" autocomplete="off" class="layui-input">
+                <input type="text" id="addnumber" name="addnumber"  value=""   lay-verify="required|numberalone" placeholder="请输入员工工号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" >
             <label class="layui-form-label"  >员工名称</label>
             <div class="layui-input-block">
-                <input type="text" id="addname" name="addname"  required value=""   lay-verify="required" placeholder="请输入员工名称" autocomplete="off" class="layui-input">
+                <input type="text" id="addname" name="addname"   value=""   lay-verify="required" placeholder="请输入员工名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" >密码</label>
             <div class="layui-input-block">
-                <input type="password" id="addpassword" name="addpassword" required   lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                <input type="password" id="addpassword" name="addpassword"    lay-verify="required|firstpwd" placeholder="" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" >重复密码</label>
             <div class="layui-input-block">
-                <input type="password" id="addpassword2" name="addpassword2" required   lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                <input type="password" id="addpassword2" name="addpassword2"    lay-verify="required|secondpwd" placeholder="" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -199,7 +235,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label" >所在部门</label>
             <div class="layui-input-block">
-                <input type="text" id="adddepartment"  name="adddepartment"  value="as"   disabled="false" autocomplete="off" class="layui-input">
+                <input type="text" id="adddepartment"  name="adddepartment"  value=""   disabled="false" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" >电话</label>
+            <div class="layui-input-block">
+                <input type="text" id="addtelephone"  name="addtelephone"  value=""  lay-verify="required|phone"   autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" >邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" id="addemail"  name="addemail"  value=""  lay-verify="required|email"  autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

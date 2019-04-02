@@ -69,10 +69,10 @@ public class EmployeeController {
             if(employees.size()==1)
             {
                 if(employees.get(0).getId()!=employee.getId())
-                    return "工号重复";
+                    return "该工号已被使用";
             }
             else
-                return "工号重复";
+                return "该工号已被使用";
         }
         employeeService.update(employee);
         return "successf";
@@ -130,5 +130,14 @@ public class EmployeeController {
         json.put("data", jsonArray);
         System.out.println(json.toJSONString());
         return json.toJSONString();
+    }
+
+    @RequestMapping(value="numberalone")
+    @ResponseBody
+    public String numberalone(String number)
+    {
+        if(employeeService.getByNumber(number).size()==0)
+            return "success";
+        return "fail";
     }
 }

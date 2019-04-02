@@ -32,4 +32,9 @@ public class ClazzService {
         clazzExample.createCriteria().andDepartmentIdEqualTo(did).andIsDeletedEqualTo(false);
         return clazzMapper.selectByExample(clazzExample);
     }
+
+    public Clazz get(int id)
+    {
+        return clazzMapper.selectByPrimaryKey(id);
+    }
 }

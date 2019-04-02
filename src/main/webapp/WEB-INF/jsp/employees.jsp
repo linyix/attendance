@@ -14,7 +14,7 @@
             姓名 &nbsp;<input  style="margin-right:4%;width: 10%;display: inline-block" name="name" type="text" class="form-control">
             所在部门&nbsp;
             <select  style="margin-right:4%;width: 10%;display: inline-block" type="text" name="department" class="form-control">
-                <option selected="selected"  value=''></option>
+                <option selected="selected"   style='display: none' value=''></option>
                 <c:forEach items="${departments}" var="department">
                     <option value="${department.id}" <c:if test="${!empty classes}"> <c:if test="${klass.id eq classes.id}">selected</c:if> </c:if> > ${department.name}</option>
                 </c:forEach>
