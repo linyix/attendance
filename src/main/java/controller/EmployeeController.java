@@ -2,6 +2,8 @@ package controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.Department;
 import pojo.Employee;
-import pojo.EmployeeExample;
 import pojo.ViewObject;
 import service.DepartmentService;
 import service.EmployeeService;
@@ -22,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("employee")
 @Controller
 public class EmployeeController {
 
@@ -30,24 +30,7 @@ public class EmployeeController {
     EmployeeService employeeService;
     @Autowired
     DepartmentService departmentService;
-
-    @RequestMapping(value = "",method = RequestMethod.GET)
-    public String list(Model model) {
-        List<Department> departments = departmentService.list();
-        model.addAttribute("departments", departments);
-        List<ViewObject> vos = new ArrayList<>();
-        List<Employee> employees = employeeService.list();
-        for (Employee e : employees) {
-            ViewObject vo = new ViewObject();
-            vo.set("employee", e);
-            vo.set("department", departmentService.get(e.getDepartmentId()));
-            vos.add(vo);
-        }
-        model.addAttribute("vos", vos);
-        return "employees";
-
-    }
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "employee",method = RequestMethod.POST)
     @ResponseBody
     public String add(Employee employee)
     {
@@ -59,7 +42,7 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(value = "{eid}", method = RequestMethod.POST)
+    @RequestMapping(value = "employee/{eid}", method = RequestMethod.POST)
     @ResponseBody
     public String update(Employee employee)
     {
@@ -79,7 +62,7 @@ public class EmployeeController {
     }
 
     //todo 权限 isdeleted
-    @RequestMapping(value="",method = RequestMethod.DELETE)
+    @RequestMapping(value="employee",method = RequestMethod.DELETE)
     @ResponseBody
     public String delete(Model model)
     {
@@ -91,15 +74,15 @@ public class EmployeeController {
 
 
     //todo
-    @RequestMapping(value = "search")
+    @RequestMapping(value = "employee/search")
     public String search(Model model)
     {
         List<Employee> employees = employeeService.list();
         model.addAttribute("employees",employees);
-        return "employees";
+        return "employees2";
     }
 
-    @RequestMapping(value="json/{id}")
+    @RequestMapping(value="employee/json/{id}")
     @ResponseBody
     public String getOneJson(@PathVariable("id") int id)
     {
@@ -107,26 +90,31 @@ public class EmployeeController {
         json.put("employee", JSONObject.toJSON(employeeService.get(id)));
         return json.toJSONString();
     }
-
-    @RequestMapping(value="jsona" ,produces = "application/json; charset=utf-8")
+    @RequestMapping(value ="department/{did}/employee" ,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String getOneJson(int page,int limit)
+    public String getEmployeeByDepartment(@PathVariable("did") int did ,int page, int limit)
     {
+        if(limit ==0)
+            limit=10;
+        PageHelper.offsetPage(0, limit);
+
         JSONArray jsonArray = new JSONArray();
-        for(int i=0;i<10;i++)
+        List<Employee> employees = employeeService.listByDepartmentId(did);
+        for(Employee employee:employees)
         {
             Map<String,Object > map = new HashMap<>();
-            map.put("id",i+1);
-            map.put("number",i);
-            map.put("username","啦啦啦");
-            map.put("telephones","121231");
+            map.put("id",employee.getId());
+            map.put("number",employee.getNumber());
+            map.put("name",employee.getName());
+            map.put("sex",employee.getSex()==0?"男":"女");
             jsonArray.add(map);
         }
+
 
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","");
-        json.put("count",300);
+        json.put("count",(int) new PageInfo<>(employees).getTotal());
         json.put("data", jsonArray);
         System.out.println(json.toJSONString());
         return json.toJSONString();
@@ -139,5 +127,18 @@ public class EmployeeController {
         if(employeeService.getByNumber(number).size()==0)
             return "success";
         return "fail";
+    }
+
+    @RequestMapping(value="employee",method = RequestMethod.GET)
+    public String tree(Model model)
+    {
+        //todo getuser
+        int eid =1;
+        //todo level
+
+        model.addAttribute("tree",departmentService.getTreeJson(eid));
+
+
+        return "employees";
     }
 }

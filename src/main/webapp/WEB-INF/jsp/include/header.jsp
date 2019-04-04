@@ -11,7 +11,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>layout 后台大布局 - Layui</title>
+	<title>员工考勤系统</title>
 	<script src="/js/jquery/2.0.0/jquery.min.js"></script>
 
 	<link rel="stylesheet" href="/layui/css/layui.css">

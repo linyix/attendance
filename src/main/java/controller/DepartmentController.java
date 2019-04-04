@@ -45,46 +45,11 @@ public class DepartmentController {
         //todo getuser
         int eid =1;
         //todo level
-        List<Manage> manages = manageService.getByEid(eid);
-        List<Department> departments = new ArrayList<>();
-        for(Manage manage:manages)
-        {
-            departments.add(departmentService.get(manage.getDepartmentId()));
-        }
-        JSONArray jsonArray = departmentService.getTree(departments);
-        model.addAttribute("tree",jsonArray.toJSONString());
-        System.out.println(jsonArray.toJSONString());
+
+        model.addAttribute("tree",departmentService.getTreeJson(eid));
+
 
         return "department";
-    }
-    @RequestMapping(value ="department/{did}/employee" ,produces = "application/json; charset=utf-8")
-    @ResponseBody
-    public String getEmployeeByDepartment(@PathVariable("did") int did ,int page, int limit)
-    {
-        if(limit ==0)
-            limit=10;
-        PageHelper.offsetPage(0, limit);
-
-        JSONArray jsonArray = new JSONArray();
-        List<Employee> employees = employeeService.listByDepartmentId(did);
-        for(Employee employee:employees)
-        {
-            Map<String,Object > map = new HashMap<>();
-            map.put("id",employee.getId());
-            map.put("number",employee.getNumber());
-            map.put("name",employee.getName());
-            map.put("sex",employee.getSex()==0?"男":"女");
-            jsonArray.add(map);
-        }
-
-
-        JSONObject json = new JSONObject();
-        json.put("code",0);
-        json.put("msg","");
-        json.put("count",(int) new PageInfo<>(employees).getTotal());
-        json.put("data", jsonArray);
-        System.out.println(json.toJSONString());
-        return json.toJSONString();
     }
 
 }

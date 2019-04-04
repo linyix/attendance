@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import pojo.Employee;
 import pojo.EmployeeExample;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeService {
@@ -60,6 +63,8 @@ public class EmployeeService {
         EmployeeExample employeeExample = new EmployeeExample();
         employeeExample.createCriteria().andIsDeletedEqualTo(false).andDepartmentIdEqualTo(did);
         return employeeMapper.selectByExample(employeeExample);
+
+
     }
 }
 

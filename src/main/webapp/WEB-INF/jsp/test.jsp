@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>员工考勤系统</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <script src="/js/jquery/2.0.0/jquery.min.js"></script>
@@ -31,7 +31,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin" >
     <div class="layui-header">
-        <div class="layui-logo">layui 后台布局</div>
+        <div class="layui-logo" style="font-weight: lighter;font-size: 17px;"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
         <!-- 头部区域（可配合layui已有的水平导航）
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -50,7 +50,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+
                     贤心
                 </a>
                 <dl class="layui-nav-child">
@@ -58,7 +58,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="">注销</a></li>
         </ul>
     </div>
 
@@ -71,20 +71,26 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">主页</a></dd>
                         <dd><a href="javascript:;">个人信息</a></dd>
-                        <dd><a href="javascript:;">功能1</a></dd>
-                        <dd><a href="department" target="iframe_a">超链接</a></dd>
+                        <dd><a href="department" target="iframe_a">我的签到</a></dd>
+                        <dd><a href="department" target="iframe_a">考勤统计</a></dd>
+                        <dd><a href="schedule" target="iframe_a">请假申请</a></dd>
+                        <dd><a href="department" target="iframe_a">外出申请</a></dd>
+                        <dd><a href="department" target="iframe_a">加班申请</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">部门管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="employee" target="iframe_a">员工管理</a></dd>
+                        <dd><a href="department" target="iframe_a">部门设置</a></dd>
+                        <dd><a href="clazz" target="iframe_a">班次管理</a></dd>
+                        <dd><a href="schedule" target="iframe_a">排班管理</a></dd>
+                        <dd><a href="department" target="iframe_a">请假审批</a></dd>
+                        <dd><a href="department" target="iframe_a">外出审批</a></dd>
+                        <dd><a href="department" target="iframe_a">加班审批</a></dd>
+                        <dd><a href="department" target="iframe_a">考勤统计</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
             </ul>
         </div>
     </div>
@@ -96,12 +102,12 @@
         <table id="demo" lay-filter="test"></table>
         <ul id="treeDemo" class="ztree"></ul>
         -->
-
+        <!--
 
     <div class="layui-footer">
-        <!-- 底部固定区域 -->
         © layui.com - 底部固定区域
     </div>
+    -->
 </div>
 <script src="/layui/layui.js"></script>
 <script>

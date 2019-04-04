@@ -13,6 +13,7 @@ import pojo.Employee;
 import pojo.Schedules;
 import pojo.ViewObject;
 import service.ClazzService;
+import service.DepartmentService;
 import service.EmployeeService;
 import service.SchedulesService;
 
@@ -28,8 +29,20 @@ public class SchedulesController {
     SchedulesService schedulesService;
     @Autowired
     ClazzService clazzService;
+    @Autowired
+    DepartmentService departmentService;
 
     String[] weekDays = { "日", "一", "二", "三", "四", "五", "六" };
+
+    //初始Tree
+    @RequestMapping("schedule")
+    public String tree(Model model)
+    {
+        int eid=1;
+        model.addAttribute("tree",departmentService.getTreeJson(eid));
+        return "treeWithSchedule";
+
+    }
 
     @RequestMapping(value = "department/{did}/schedule",method = RequestMethod.GET)
     public String list(@PathVariable("did") int did, String date, Model model) throws Exception
