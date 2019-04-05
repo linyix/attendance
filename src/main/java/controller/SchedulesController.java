@@ -1,5 +1,7 @@
 package controller;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,15 +88,6 @@ public class SchedulesController {
             viewObject.set("vos2",vos2);
             vos.add(viewObject);
 
-
-            /*
-            List<Boolean> canBeEdited = new ArrayList<>();
-            viewObject.set("canBeEdited",canBeEdited);
-            List<Schedules> schedules = new ArrayList<>();
-            viewObject.set("schedules",schedules);
-            List<Schedules> clazzes = new ArrayList<>();
-            viewObject.set("clazzes",schedules);
-            */
             for(Date dd:dates)
             {
                 ViewObject viewObject2 = new ViewObject();
@@ -164,6 +157,31 @@ public class SchedulesController {
         if (w < 0)
             w = 0;
         return weekDays[w];
+    }
+
+    @RequestMapping(value="/myschedule",produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String myschedule(String start,String end) throws Exception
+    {
+        int eid =2;
+        start =StringUtils.substringBefore(start,"T");
+        end =StringUtils.substringBefore(end,"T");
+        System.out.println(start+"///"+end);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = simpleDateFormat.parse(start);
+        Date endDate = simpleDateFormat.parse(end);
+        JSONArray jsonArray = new JSONArray();
+        List<Schedules> schedules = schedulesService.getByEidAndStartAndEnd(eid,startDate,endDate);
+        for(Schedules schedules1 :schedules)
+        {
+            Clazz clazz = clazzService.get(schedules1.getClazzId());
+            Map<String,Object> map = new HashMap<>();
+            map.put("title",clazz.getName());
+            map.put("start",simpleDateFormat.format(schedules1.getClazzDate()));
+            jsonArray.add(map);
+        }
+        return jsonArray.toJSONString();
+
     }
 
 }

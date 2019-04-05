@@ -6,7 +6,6 @@
     <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
     <result column="minutes" jdbcType="INTEGER" property="minutes" />
     <result column="start_time" jdbcType="DATE" property="startTime" />
-    <result column="is_passed" jdbcType="BIT" property="isPassed" />
     <result column="notes" jdbcType="VARCHAR" property="notes" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -39,7 +38,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_id, minutes, start_time, is_passed, notes
+    id, employee_id, minutes, start_time, notes
   </sql>
   <select id="selectByExample" parameterType="pojo.OvertimeExample" resultMap="BaseResultMap">
     select
@@ -68,9 +67,9 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Overtime" useGeneratedKeys="true">
     insert into overtime (employee_id, minutes, start_time, 
-      is_passed, notes)
+      notes)
     values (#{employeeId,jdbcType=INTEGER}, #{minutes,jdbcType=INTEGER}, #{startTime,jdbcType=DATE}, 
-      #{isPassed,jdbcType=BIT}, #{notes,jdbcType=VARCHAR})
+      #{notes,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Overtime" useGeneratedKeys="true">
     insert into overtime
@@ -83,9 +82,6 @@
       </if>
       <if test="startTime != null">
         start_time,
-      </if>
-      <if test="isPassed != null">
-        is_passed,
       </if>
       <if test="notes != null">
         notes,
@@ -100,9 +96,6 @@
       </if>
       <if test="startTime != null">
         #{startTime,jdbcType=DATE},
-      </if>
-      <if test="isPassed != null">
-        #{isPassed,jdbcType=BIT},
       </if>
       <if test="notes != null">
         #{notes,jdbcType=VARCHAR},
@@ -121,9 +114,6 @@
       <if test="startTime != null">
         start_time = #{startTime,jdbcType=DATE},
       </if>
-      <if test="isPassed != null">
-        is_passed = #{isPassed,jdbcType=BIT},
-      </if>
       <if test="notes != null">
         notes = #{notes,jdbcType=VARCHAR},
       </if>
@@ -135,7 +125,6 @@
     set employee_id = #{employeeId,jdbcType=INTEGER},
       minutes = #{minutes,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=DATE},
-      is_passed = #{isPassed,jdbcType=BIT},
       notes = #{notes,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

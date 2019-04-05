@@ -69,11 +69,11 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">个人管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">主页</a></dd>
-                        <dd><a href="javascript:;">个人信息</a></dd>
+                        <dd><a href="home" target="iframe_a">主页</a></dd>
+                        <dd><a href="myinfo" target="iframe_a">个人信息</a></dd>
                         <dd><a href="department" target="iframe_a">我的签到</a></dd>
                         <dd><a href="department" target="iframe_a">考勤统计</a></dd>
-                        <dd><a href="schedule" target="iframe_a">请假申请</a></dd>
+                        <dd><a href="myleavee" target="iframe_a">请假申请</a></dd>
                         <dd><a href="department" target="iframe_a">外出申请</a></dd>
                         <dd><a href="department" target="iframe_a">加班申请</a></dd>
                     </dl>

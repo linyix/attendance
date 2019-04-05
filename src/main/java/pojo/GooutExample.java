@@ -414,66 +414,6 @@ public class GooutExample {
             addCriterion("notes not between", value1, value2, "notes");
             return (Criteria) this;
         }
-
-        public Criteria andIsPassedIsNull() {
-            addCriterion("is_passed is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedIsNotNull() {
-            addCriterion("is_passed is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedEqualTo(Boolean value) {
-            addCriterion("is_passed =", value, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedNotEqualTo(Boolean value) {
-            addCriterion("is_passed <>", value, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedGreaterThan(Boolean value) {
-            addCriterion("is_passed >", value, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("is_passed >=", value, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedLessThan(Boolean value) {
-            addCriterion("is_passed <", value, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedLessThanOrEqualTo(Boolean value) {
-            addCriterion("is_passed <=", value, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedIn(List<Boolean> values) {
-            addCriterion("is_passed in", values, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedNotIn(List<Boolean> values) {
-            addCriterion("is_passed not in", values, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_passed between", value1, value2, "isPassed");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsPassedNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_passed not between", value1, value2, "isPassed");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

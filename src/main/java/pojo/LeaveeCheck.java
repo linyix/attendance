@@ -9,6 +9,8 @@ public class LeaveeCheck {
 
     private String notes;
 
+    private Boolean pass;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class LeaveeCheck {
 
     public void setNotes(String notes) {
         this.notes = notes == null ? null : notes.trim();
+    }
+
+    public Boolean getPass() {
+        return pass;
+    }
+
+    public void setPass(Boolean pass) {
+        this.pass = pass;
     }
 }

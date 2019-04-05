@@ -42,4 +42,11 @@ public class SchedulesService {
         }
 
     }
+
+    public List<Schedules> getByEidAndStartAndEnd(int eid,Date start,Date end)
+    {
+        SchedulesExample schedulesExample = new SchedulesExample();
+        schedulesExample.createCriteria().andEmployeeIdEqualTo(eid).andClazzDateBetween(start,end);
+        return schedulesMapper.selectByExample(schedulesExample);
+    }
 }

@@ -39,6 +39,10 @@ public class EmployeeService {
     {
         employeeMapper.updateByPrimaryKey(employee);
     }
+    public void updateSelective(Employee employee)
+    {
+        employeeMapper.updateByPrimaryKeySelective(employee);
+    }
 
     public Employee get(int id)
     {

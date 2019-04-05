@@ -11,8 +11,6 @@ public class Overtime {
 
     private Date startTime;
 
-    private Boolean isPassed;
-
     private String notes;
 
     public Integer getId() {
@@ -45,14 +43,6 @@ public class Overtime {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
-    }
-
-    public Boolean getIsPassed() {
-        return isPassed;
-    }
-
-    public void setIsPassed(Boolean isPassed) {
-        this.isPassed = isPassed;
     }
 
     public String getNotes() {

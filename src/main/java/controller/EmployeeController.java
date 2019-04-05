@@ -18,6 +18,7 @@ import service.DepartmentService;
 import service.EmployeeService;
 
 
+import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,7 +97,7 @@ public class EmployeeController {
     {
         if(limit ==0)
             limit=10;
-        PageHelper.offsetPage(0, limit);
+        PageHelper.offsetPage(page-1, limit);
 
         JSONArray jsonArray = new JSONArray();
         List<Employee> employees = employeeService.listByDepartmentId(did);
@@ -140,5 +141,33 @@ public class EmployeeController {
 
 
         return "employees";
+    }
+
+    //个人信息R
+    @RequestMapping(value="myinfo",method = RequestMethod.GET)
+    public String myinfo(Model model)
+    {
+        int eid=1;
+        Employee e = employeeService.get(eid);
+        Department department = departmentService.get(e.getDepartmentId());
+        model.addAttribute("d",department);
+        model.addAttribute("e",e);
+        return "myinfo";
+    }
+
+    //个人信息A
+    @RequestMapping(value="myinfo",method = RequestMethod.POST)
+    @ResponseBody
+    public String myinfoAdd(String email,String telephone)
+    {
+        int eid=1;
+        Employee e = new Employee();
+        e.setId(eid);
+
+        e.setEmail(email);
+        e.setTelephone(telephone);
+
+        employeeService.updateSelective(e);
+        return "success";
     }
 }

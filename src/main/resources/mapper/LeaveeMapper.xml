@@ -7,7 +7,6 @@
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="notes" jdbcType="VARCHAR" property="notes" />
-    <result column="is_passed" jdbcType="BIT" property="isPassed" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -39,7 +38,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_id, start_time, end_time, notes, is_passed
+    id, employee_id, start_time, end_time, notes
   </sql>
   <select id="selectByExample" parameterType="pojo.LeaveeExample" resultMap="BaseResultMap">
     select
@@ -68,9 +67,9 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Leavee" useGeneratedKeys="true">
     insert into leavee (employee_id, start_time, end_time, 
-      notes, is_passed)
+      notes)
     values (#{employeeId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{notes,jdbcType=VARCHAR}, #{isPassed,jdbcType=BIT})
+      #{notes,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Leavee" useGeneratedKeys="true">
     insert into leavee
@@ -87,9 +86,6 @@
       <if test="notes != null">
         notes,
       </if>
-      <if test="isPassed != null">
-        is_passed,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="employeeId != null">
@@ -103,9 +99,6 @@
       </if>
       <if test="notes != null">
         #{notes,jdbcType=VARCHAR},
-      </if>
-      <if test="isPassed != null">
-        #{isPassed,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -124,9 +117,6 @@
       <if test="notes != null">
         notes = #{notes,jdbcType=VARCHAR},
       </if>
-      <if test="isPassed != null">
-        is_passed = #{isPassed,jdbcType=BIT},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -135,8 +125,7 @@
     set employee_id = #{employeeId,jdbcType=INTEGER},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
-      notes = #{notes,jdbcType=VARCHAR},
-      is_passed = #{isPassed,jdbcType=BIT}
+      notes = #{notes,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

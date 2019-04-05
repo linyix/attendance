@@ -13,8 +13,6 @@ public class Leavee {
 
     private String notes;
 
-    private Boolean isPassed;
-
     public Integer getId() {
         return id;
     }
@@ -53,13 +51,5 @@ public class Leavee {
 
     public void setNotes(String notes) {
         this.notes = notes == null ? null : notes.trim();
-    }
-
-    public Boolean getIsPassed() {
-        return isPassed;
-    }
-
-    public void setIsPassed(Boolean isPassed) {
-        this.isPassed = isPassed;
     }
 }

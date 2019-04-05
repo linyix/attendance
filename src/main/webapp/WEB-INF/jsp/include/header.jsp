@@ -20,6 +20,11 @@
 	<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<script type="text/javascript" src="/ztree/js/jquery.ztree.core.js"></script>
 
+	<link href='/fullcalendar/core/main.css' rel='stylesheet' />
+	<link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
+	<script src='/fullcalendar/core/main.js'></script>
+	<script src='/fullcalendar/interaction/main.js'></script>
+	<script src='/fullcalendar/daygrid/main.js'></script>
 </head>
 
 
