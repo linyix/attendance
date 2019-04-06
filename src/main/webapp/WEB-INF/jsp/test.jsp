@@ -83,12 +83,23 @@
                     <dl class="layui-nav-child">
                         <dd><a href="employee" target="iframe_a">员工管理</a></dd>
                         <dd><a href="department" target="iframe_a">部门设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">考勤管理</a>
+                    <dl class="layui-nav-child">
                         <dd><a href="clazz" target="iframe_a">班次管理</a></dd>
                         <dd><a href="schedule" target="iframe_a">排班管理</a></dd>
                         <dd><a href="department" target="iframe_a">请假审批</a></dd>
                         <dd><a href="department" target="iframe_a">外出审批</a></dd>
                         <dd><a href="department" target="iframe_a">加班审批</a></dd>
-                        <dd><a href="department" target="iframe_a">考勤统计</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">考勤统计</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="department" target="iframe_a">部门统计</a></dd>
+                        <dd><a href="department" target="iframe_a">员工统计</a></dd>
                     </dl>
                 </li>
             </ul>

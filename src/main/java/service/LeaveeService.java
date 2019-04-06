@@ -20,6 +20,7 @@ public class LeaveeService {
     {
         LeaveeExample leaveeExample = new LeaveeExample();
         leaveeExample.createCriteria().andEmployeeIdEqualTo(eid);
+        leaveeExample.setOrderByClause("id desc");
         return leaveeMapper.selectByExample(leaveeExample);
     }
     public List<Leavee> listByDid(int did)
@@ -47,13 +48,13 @@ public class LeaveeService {
     public List<Leavee> listByStartBefore(Leavee leavee)
     {
         LeaveeExample leaveeExample = new LeaveeExample();
-        leaveeExample.createCriteria().andStartTimeLessThanOrEqualTo(leavee.getStartTime());
+        leaveeExample.createCriteria().andStartTimeLessThanOrEqualTo(leavee.getStartTime()).andEndTimeGreaterThanOrEqualTo(leavee.getStartTime());
         return leaveeMapper.selectByExample(leaveeExample);
     }
     public List<Leavee> listByEndAfter(Leavee leavee)
     {
         LeaveeExample leaveeExample = new LeaveeExample();
-        leaveeExample.createCriteria().andEndTimeGreaterThanOrEqualTo(leavee.getEndTime());
+        leaveeExample.createCriteria().andEndTimeGreaterThanOrEqualTo(leavee.getEndTime()).andStartTimeLessThanOrEqualTo(leavee.getEndTime());
         return leaveeMapper.selectByExample(leaveeExample);
     }
 
@@ -62,5 +63,10 @@ public class LeaveeService {
         if(listByEndAfter(leavee).size()==0 && listByStartBefore(leavee).size()==0)
             return false;
         return true;
+    }
+
+    public Leavee get(int lid)
+    {
+        return leaveeMapper.selectByPrimaryKey(lid);
     }
 }

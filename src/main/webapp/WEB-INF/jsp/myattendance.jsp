@@ -20,15 +20,15 @@
         });
         tableIns =table.render({
             elem: '#demo'
-            ,url: 'myleavee/json' //数据接口
+            ,url: 'myattendance/json' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
-                {field: 'id', title: '编号', }
-                ,{field: 'employeeNumber', title: '申请人工号'}
-                ,{field: 'employeeName', title: '申请人姓名'}
-                ,{field: 'starttime', title: '开始时间'}
-                ,{field: 'endtime', title: '结束时间'  }
-                ,{field: 'passed', title: '状态'  }
+                {field: 'employeeNumber', title: '签到人工号'}
+                ,{field: 'employeeName', title: '签到人姓名'}
+                ,{field: 'starttime', title: '打卡时间'}
+                ,{field: 'endtime', title: '退卡时间'  }
+                ,{field: 'clazzName', title: '班次'  }
+                ,{field: 'type', title: '类型'  }
                 ,{align:'center', toolbar: '#barDemo'}
             ]]
 

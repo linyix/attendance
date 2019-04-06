@@ -7,6 +7,7 @@
     <result column="check_in" jdbcType="TIMESTAMP" property="checkIn" />
     <result column="check_out" jdbcType="TIMESTAMP" property="checkOut" />
     <result column="schedules_id" jdbcType="INTEGER" property="schedulesId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -38,7 +39,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, employee_id, check_in, check_out, schedules_id
+    id, employee_id, check_in, check_out, schedules_id, type
   </sql>
   <select id="selectByExample" parameterType="pojo.AttendancesExample" resultMap="BaseResultMap">
     select
@@ -67,9 +68,9 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Attendances" useGeneratedKeys="true">
     insert into attendances (employee_id, check_in, check_out, 
-      schedules_id)
+      schedules_id, type)
     values (#{employeeId,jdbcType=INTEGER}, #{checkIn,jdbcType=TIMESTAMP}, #{checkOut,jdbcType=TIMESTAMP}, 
-      #{schedulesId,jdbcType=INTEGER})
+      #{schedulesId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Attendances" useGeneratedKeys="true">
     insert into attendances
@@ -86,6 +87,9 @@
       <if test="schedulesId != null">
         schedules_id,
       </if>
+      <if test="type != null">
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="employeeId != null">
@@ -99,6 +103,9 @@
       </if>
       <if test="schedulesId != null">
         #{schedulesId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -117,6 +124,9 @@
       <if test="schedulesId != null">
         schedules_id = #{schedulesId,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -125,7 +135,8 @@
     set employee_id = #{employeeId,jdbcType=INTEGER},
       check_in = #{checkIn,jdbcType=TIMESTAMP},
       check_out = #{checkOut,jdbcType=TIMESTAMP},
-      schedules_id = #{schedulesId,jdbcType=INTEGER}
+      schedules_id = #{schedulesId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

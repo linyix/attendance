@@ -13,6 +13,8 @@ public class Attendances {
 
     private Integer schedulesId;
 
+    private String type;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class Attendances {
 
     public void setSchedulesId(Integer schedulesId) {
         this.schedulesId = schedulesId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 }

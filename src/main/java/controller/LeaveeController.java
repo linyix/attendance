@@ -38,6 +38,7 @@ public class LeaveeController {
     LeaveeService leaveeService;
     public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+    //树
     @RequestMapping(value = "/leavee")
     public String leavee(Model model)
     {
@@ -45,12 +46,31 @@ public class LeaveeController {
         model.addAttribute("tree",departmentService.getTreeJson(eid));
         return "leavee";
     }
+    @RequestMapping(value = "/leavee/{lid}/json")
+    @ResponseBody
+    public String leaveeJson(@PathVariable("lid") int lid)
+    {
+        Leavee leavee= leaveeService.get(lid);
+        Employee employee = employeeService.get(leavee.getEmployeeId());
+        String start = simpleDateFormat.format(leavee.getStartTime());
+        String end = simpleDateFormat.format(leavee.getEndTime());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("employee",JSONObject.toJSON(employee));
+        jsonObject.put("leavee",JSONObject.toJSON(leavee));
+        jsonObject.put("start",start);
+        jsonObject.put("end",end);
+        return jsonObject.toJSONString();
+    }
 
+
+    //个人页面
     @RequestMapping(value ="/myleavee",method = RequestMethod.GET)
     public String myleavee(Model model)
     {
         return "myleavee";
     }
+
+    //个人添加
     @RequestMapping(value ="/myleavee",method = RequestMethod.POST)
     @ResponseBody
     public String myleaveeAdd(String daterange,String notes) throws Exception
@@ -67,9 +87,10 @@ public class LeaveeController {
         return "success";
     }
 
-    @RequestMapping(value ="/myleavee/json",produces = "application/json; charset=utf-8")
+    //个人列表
+    @RequestMapping(value ="/myleavee/json",method = RequestMethod.GET,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String myleaveeJson(int page, int limit) throws Exception
+    public String myleaveeJsonGet(int page, int limit) throws Exception
     {
         if(limit ==0)
             limit=10;
@@ -83,7 +104,7 @@ public class LeaveeController {
             map.put("id",leavee.getId());
             map.put("starttime",simpleDateFormat.format(leavee.getStartTime()));
             map.put("endtime",simpleDateFormat.format(leavee.getEndTime()));
-            map.put("employeeId",leavee.getEmployeeId());
+            map.put("employeeNumber",leavee.getEmployeeId());
             map.put("employeeName",employeeService.get(leavee.getEmployeeId()).getName());
             LeaveeCheck leaveeCheck = leaveeCheckService.getByLeaveeId(leavee.getId());
             if(leaveeCheck==null)
@@ -105,6 +126,7 @@ public class LeaveeController {
         return json.toJSONString();
 
     }
+
 
 
 
