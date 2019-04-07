@@ -16,6 +16,7 @@ import pojo.Employee;
 import pojo.Schedules;
 import service.AttendancesService;
 import service.ClazzService;
+import service.EmployeeService;
 import service.SchedulesService;
 
 import java.text.SimpleDateFormat;
@@ -30,16 +31,20 @@ public class AttendanceController {
     AttendancesService attendancesService;
     @Autowired
     ClazzService clazzService;
+    @Autowired
+    EmployeeService employeeService;
+
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+    SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     @RequestMapping(value = "myattendance",method = RequestMethod.GET)
     public String myAttendance()
     {
         return "myattendance";
     }
 
-    @RequestMapping(value = "myattendance/json")
+    @RequestMapping(value = "myattendance/json",produces = "application/json; charset=utf-8")
+    @ResponseBody
     public String myAttendanceJson(int page, int limit)
     {
         int eid =2;
@@ -53,13 +58,22 @@ public class AttendanceController {
         {
             Attendances attendances = attendancesService.getBySid(schedules.getId());
             Clazz clazz = clazzService.get(schedules.getClazzId());
+            Employee employee = employeeService.get(schedules.getEmployeeId());
             Map<String,Object > map = new HashMap<>();
-            map.put("id",attendances.getId());
-            map.put("employeeId",attendances.getEmployeeId());
-            map.put("clazz",clazz.getName());
-            map.put("checkin",simpleDateFormat.format(attendances.getCheckIn()));
-            map.put("checkout",simpleDateFormat.format(attendances.getCheckOut()));
-            map.put("type",attendances.getType()+(attendances.getCheckOut()==null?"未退卡":""));
+            map.put("id",schedules.getId());
+            map.put("employeeNumber",employee.getNumber());
+            map.put("employeeName",employee.getName());
+            map.put("clazzName",clazz.getName());
+            map.put("checkin",attendances==null?"":simpleDateFormat2.format(attendances.getCheckIn()));
+            map.put("checkout",attendances==null?"":simpleDateFormat2.format(attendances.getCheckOut()));
+            if(attendances==null)
+            {
+                map.put("type","未打卡");
+            }
+            else
+            {
+                map.put("type",attendances.getType()+(attendances.getCheckOut()==null?"|未退卡":""));
+            }
             jsonArray.add(map);
         }
 

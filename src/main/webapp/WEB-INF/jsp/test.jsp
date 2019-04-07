@@ -71,7 +71,7 @@
                     <dl class="layui-nav-child">
                         <dd><a href="home" target="iframe_a">主页</a></dd>
                         <dd><a href="myinfo" target="iframe_a">个人信息</a></dd>
-                        <dd><a href="department" target="iframe_a">我的签到</a></dd>
+                        <dd><a href="myattendance" target="iframe_a">我的签到</a></dd>
                         <dd><a href="department" target="iframe_a">考勤统计</a></dd>
                         <dd><a href="myleavee" target="iframe_a">请假申请</a></dd>
                         <dd><a href="department" target="iframe_a">外出申请</a></dd>
@@ -107,7 +107,7 @@
     </div>
 
     <div class="layui-body">
-        <iframe src="department" name="iframe_a" style="width: 100%;height: 100%;border-width: 0"></iframe>
+        <iframe src="department" name="iframe_a" style="width: 100%;height: 100%;border-width: 0;background-color: #fbfbfb;"></iframe>
 
         <!--
         <table id="demo" lay-filter="test"></table>

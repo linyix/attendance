@@ -25,11 +25,10 @@
             ,cols: [[ //表头
                 {field: 'employeeNumber', title: '签到人工号'}
                 ,{field: 'employeeName', title: '签到人姓名'}
-                ,{field: 'starttime', title: '打卡时间'}
-                ,{field: 'endtime', title: '退卡时间'  }
+                ,{field: 'checkin', title: '打卡时间'}
+                ,{field: 'checkout', title: '退卡时间'  }
                 ,{field: 'clazzName', title: '班次'  }
                 ,{field: 'type', title: '类型'  }
-                ,{align:'center', toolbar: '#barDemo'}
             ]]
 
         });
@@ -171,7 +170,7 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>添加</button>
+
                             </div>
                         </div>
                     </div>
@@ -179,7 +178,6 @@
                 </div>
             </div>
 </div>
-
 </body>
 
 <!-- 弹出层 添加 -->
@@ -228,18 +226,3 @@
 </form>
 </div>
 
-<div class="layui-form-item">
-    <label class="layui-form-label" >时间</label>
-    <div class="layui-input-block">
-        <input type="text" class="layui-input" id="editdaterange" >
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label" >备注</label>
-    <div class="layui-input-block">
-        <textarea id="editnotes" name="addnotes" placeholder="请输入内容" class="layui-textarea"  disabled="disabled"></textarea>
-        <!-- <input type="hidden" name="id" style="width: 240px" autocomplete="off" class="layui-input"> -->
-    </div>
-</div>
-</form>
-</div>

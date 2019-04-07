@@ -228,18 +228,3 @@
 </form>
 </div>
 
-<div class="layui-form-item">
-    <label class="layui-form-label" >时间</label>
-    <div class="layui-input-block">
-        <input type="text" class="layui-input" id="editdaterange" >
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label" >备注</label>
-    <div class="layui-input-block">
-        <textarea id="editnotes" name="addnotes" placeholder="请输入内容" class="layui-textarea"  disabled="disabled"></textarea>
-        <!-- <input type="hidden" name="id" style="width: 240px" autocomplete="off" class="layui-input"> -->
-    </div>
-</div>
-</form>
-</div>
