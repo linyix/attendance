@@ -30,8 +30,13 @@
 </script>
 
 <div>
-<a href="?date=${last}">上周</a>
-    <a href="?date=${next}">下周</a>
+    <button class="layui-btn layui-btn-sm layui-btn-primary">
+        <a href="?date=${last}"><i class="layui-icon layui-icon-prev" ></i></a>
+    </button>
+    <button class="layui-btn layui-btn-sm layui-btn-primary">
+        <a href="?date=${next}"><i class="layui-icon layui-icon-next" ></i></a>
+    </button>
+
 <table border="1" cellspacing="0" class="myschedule">
     <thead>
     <th>

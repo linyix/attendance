@@ -33,7 +33,7 @@ public class DepartmentController {
     @Autowired
     EmployeeService employeeService;
 
-    @RequestMapping("")
+    @RequestMapping("admin")
     public String index()
     {
         return "test";

@@ -20,7 +20,7 @@
         });
         tableIns =table.render({
             elem: '#demo'
-            ,url: 'myleavee/json' //数据接口
+            ,url: 'myGoout/json' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
                 {field: 'id', title: '编号', }
@@ -53,7 +53,7 @@
         });
 
         form.on('submit(save)', function (data) {
-            var page = "/myleavee";
+            var page = "/myGoout";
             $.post(
                 page,
                 {"daterange":$("#daterange").val(),"notes":$("#addnotes").val()},
@@ -96,14 +96,14 @@
 
     function onEditBtn(lid){
         //页面层-自定义
-        var url="leavee/"+lid+"/json";
+        var url="Goout/"+lid+"/json";
         $.post(
             url,
             function(data) {
                 console.log(data);
                 var json=JSON.parse(data);
                 $("#editdaterange").val(json.start+" - "+json.end);
-                $("#editnotes").val(json.leavee.notes);
+                $("#editnotes").val(json.Goout.notes);
                 editIndex= layer.open({
                     type: 1,
                     title:"新建配置",
@@ -125,7 +125,7 @@
 
     function onCheckBtn(lid){
         //页面层-自定义
-        var url="leavee/"+lid+"/leaveecheck/json";
+        var url="Goout/"+lid+"/Gooutcheck/json";
         $.post(
             url,
             function(data) {
@@ -139,8 +139,8 @@
                     var json=JSON.parse(data);
                     $("#checkName").val(json.employee.name);
                     $("#checkNumber").val(json.employee.number);
-                    $("#checknotes").val(json.leaveecheck.notes);
-                    if(json.leaveecheck.pass ==1)
+                    $("#checknotes").val(json.Gooutcheck.notes);
+                    if(json.Gooutcheck.pass ==1)
                         $("#checkType").val("通过");
                     else
                         $("#checkType").val("未通过");

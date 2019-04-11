@@ -2,37 +2,42 @@
          pageEncoding="UTF-8" import="java.util.*"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="include/header.jsp"%>
+<%@include file="../include/header.jsp"%>
 
 
 
 
 <div class="workingArea">
 
+
     <div class="listDataTableDiv">
         <table class="table table-striped table-bordered table-hover  table-condensed bllu">
             <thead>
             <tr class="success">
-                <th>班次名称</th>
-                <th>起始时间</th>
-                <th>终止时间</th>
-                <th>打卡提前</th>
-                <th>退卡延迟</th>
+                <th>部门名称</th>
                 <th>操作</th>
                 <th><label style="margin-bottom: 0px"><input type="checkbox" onclick="ckAll()" id="allChecks" >全选</label></th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${clazzes}" var="c">
+            <c:forEach items="${department}" var="c">
 
                 <tr>
                     <td style="display:none"> ${c.id} </td>
-                    <td>${c.name} </td>
-                    <td><fmt:formatDate value="${c.startTime}" pattern="HH:mm"/></td>
-                    <td><fmt:formatDate value="${c.endTime}" pattern="HH:mm"/></td>
-                    <td>${c.bfStart}分钟 </td>
-                    <td>${c.afEnd}分钟 </td>
-                    <td><button  type="button"  class="toEditEmployee btn btn-sm btn-primary">编辑</button> </td>
+                    <td>${c.name}</td>
+                    <td>
+                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">编辑</button>
+
+                        <a href="/department/${c.id}/clazz">
+                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">班次</button>
+                        </a>
+
+                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">排班</button>
+
+                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">考勤</button>
+
+                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">统计</button>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -51,24 +56,7 @@
                 </div>
                 <form >
                     <div class="modal-body">
-                        <p>员工工号 <input id="editnumber" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>员工姓名 <input id="editname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>密码     <input id="editpassword" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>员工部门 <select id="editdepartment" style="width: 50%;display: inline-block" type="text" class="form-control">
-                            <c:forEach items="${departments}" var="department">
-                                <option value="${department.id}">  ${department.name}</option>
-                            </c:forEach>
-                        </select>
-                        </p>
-
-                        <p>员工性别 <select id="editsex" style="width: 50%;display: inline-block" type="text" class="form-control">
-                            <option value="0">男</option>
-                            <option value="1">女</option>
-                        </select>
-                        </p>
-                        <p>电话 <input id="edittelephone" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>备注</p><textarea id="editnotes" class="form-control"></textarea>
-
+                        <p>部门名称 <input id="editname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
@@ -87,27 +75,11 @@
                         <span class="errorMessage"></span>
                     </div>
                     <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">新增员工</h4>
+                    <h4 class="modal-title">新增部门</h4>
                 </div>
                 <form >
                     <div class="modal-body">
-                        <p>员工工号 <input id="addnumber" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>员工姓名 <input id="addname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>密码     <input id="addpassword" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>员工部门 <select id="adddepartment" style="width: 50%;display: inline-block" type="text" class="form-control">
-                            <c:forEach items="${departments}" var="department">
-                                <option value="${department.id}">  ${department.name}</option>
-                            </c:forEach>
-                        </select>
-                        </p>
-
-                        <p>员工性别 <select id="addsex" style="width: 50%;display: inline-block" type="text" class="form-control">
-                            <option value="0">男</option>
-                            <option value="1">女</option>
-                        </select>
-                        </p>
-                        <p>电话 <input id="addtelephone" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
-                        <p>备注</p><textarea id="addnotes" class="form-control"></textarea>
+                        <p>部门名称 <input id="addname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
 
                     </div>
                     <div class="modal-footer">
@@ -135,7 +107,7 @@
 
             employeeId = $(this).parent().parent().children("td")[0].innerHTML;
             $("#editError").hide();
-            var url="employee/json/"+employeeId;
+            var url="department/json/"+employeeId;
             $.post(
                 url,
                 function(data) {

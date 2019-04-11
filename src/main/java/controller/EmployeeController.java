@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.Department;
 import pojo.Employee;
-import pojo.ViewObject;
 import service.DepartmentService;
 import service.EmployeeService;
 
 
-import javax.jws.WebParam;
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +78,7 @@ public class EmployeeController {
     {
         List<Employee> employees = employeeService.list();
         model.addAttribute("employees",employees);
-        return "employees2";
+        return "todelete/employees2";
     }
 
     @RequestMapping(value="employee/json/{id}")
@@ -145,9 +143,9 @@ public class EmployeeController {
 
     //个人信息R
     @RequestMapping(value="myinfo",method = RequestMethod.GET)
-    public String myinfo(Model model)
+    public String myinfo(Model model, HttpSession session)
     {
-        int eid=1;
+        int eid =((Employee)session.getAttribute("user")).getId();
         Employee e = employeeService.get(eid);
         Department department = departmentService.get(e.getDepartmentId());
         model.addAttribute("d",department);
@@ -158,9 +156,9 @@ public class EmployeeController {
     //个人信息A
     @RequestMapping(value="myinfo",method = RequestMethod.POST)
     @ResponseBody
-    public String myinfoAdd(String email,String telephone)
+    public String myinfoAdd(String email,String telephone,HttpSession session)
     {
-        int eid=1;
+        int eid =((Employee)session.getAttribute("user")).getId();
         Employee e = new Employee();
         e.setId(eid);
 

@@ -20,6 +20,9 @@ public class DepartmentService {
 
     @Autowired
     ManageService   manageService;
+    @Autowired
+    EmployeeService employeeService;
+
     public Department get(int id)
     {
         return departmentMapper.selectByPrimaryKey(id);
@@ -63,5 +66,38 @@ public class DepartmentService {
         }
         JSONArray jsonArray = getTree(departments);
         return jsonArray.toJSONString();
+    }
+
+    public List<Department> listAllManageByEmployeeId(int eid)
+    {
+        List<Manage> manages = manageService.getByEid(eid);
+        List<Department> departments = new ArrayList<>();
+        for(Manage manage:manages)
+        {
+            departments.add(get(manage.getDepartmentId()));
+            List<Department>departments1 = listAllManageByDepartmentId(manage.getDepartmentId());
+            departments.addAll(departments1);
+        }
+        return departments;
+    }
+    public List<Department> listAllManageByDepartmentId(int did)
+    {
+        List<Department> departments=listByParent(did);
+        List<Department> departments1 = new ArrayList<>();
+        for(Department department:departments)
+        {
+            departments1.addAll(departments1);
+        }
+        departments.addAll(departments1);
+        return departments;
+    }
+    public boolean isDidInDepartmentList(int did,List<Department> departments)
+    {
+        for(Department department:departments)
+        {
+            if(department.getId()==did)
+                return true;
+        }
+        return false;
     }
 }

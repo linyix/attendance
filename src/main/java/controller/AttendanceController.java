@@ -19,6 +19,7 @@ import service.ClazzService;
 import service.EmployeeService;
 import service.SchedulesService;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -45,9 +46,9 @@ public class AttendanceController {
 
     @RequestMapping(value = "myattendance/json",produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String myAttendanceJson(int page, int limit)
+    public String myAttendanceJson(int page, int limit, HttpSession session) throws Exception
     {
-        int eid =2;
+        int eid =((Employee)session.getAttribute("user")).getId();
         if(limit ==0)
             limit=10;
         PageHelper.offsetPage(page-1, limit);
@@ -63,9 +64,20 @@ public class AttendanceController {
             map.put("id",schedules.getId());
             map.put("employeeNumber",employee.getNumber());
             map.put("employeeName",employee.getName());
+            Map<String,Object> s =  schedulesService.getStartAndEnd(schedules);
+            map.put("starttime",simpleDateFormat2.format((Date)s.get("start")));
+            map.put("endtime",simpleDateFormat2.format((Date)s.get("end")));
             map.put("clazzName",clazz.getName());
             map.put("checkin",attendances==null?"":simpleDateFormat2.format(attendances.getCheckIn()));
-            map.put("checkout",attendances==null?"":simpleDateFormat2.format(attendances.getCheckOut()));
+            if(attendances!=null&&attendances.getCheckOut()!=null)
+            {
+                map.put("checkout",simpleDateFormat2.format(attendances.getCheckOut()));
+            }
+            else
+            {
+                map.put("checkout","");
+            }
+
             if(attendances==null)
             {
                 map.put("type","未打卡");
@@ -90,10 +102,9 @@ public class AttendanceController {
     //打卡
     @RequestMapping(value = "myattendance/on")
     @ResponseBody
-    public String myAttendanceOn() throws Exception
+    public String myAttendanceOn(HttpSession session) throws Exception
     {
-
-        int eid=2;
+        int eid =((Employee)session.getAttribute("user")).getId();
 
 
         List<Schedules> scheduleses = schedulesService.getThreeDaySchedules(eid);
@@ -124,10 +135,10 @@ public class AttendanceController {
     //退卡
     @RequestMapping(value = "myattendance/off")
     @ResponseBody
-    public String myAttendanceOff() throws Exception
+    public String myAttendanceOff(HttpSession session) throws Exception
     {
 
-        int eid=2;
+        int eid =((Employee)session.getAttribute("user")).getId();
         List<Schedules> scheduleses = schedulesService.getThreeDaySchedules(eid);
         Date date = new Date();
         Map<String,Object> map;

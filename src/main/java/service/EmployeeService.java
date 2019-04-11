@@ -70,6 +70,16 @@ public class EmployeeService {
 
 
     }
+
+    public Employee login(String number,String password)
+    {
+        EmployeeExample employeeExample = new EmployeeExample();
+        employeeExample.createCriteria().andNumberEqualTo(number).andPasswordEqualTo(password);
+        List<Employee> employees = employeeMapper.selectByExample(employeeExample);
+        if(employees.size()==0)
+            return null;
+        return employees.get(0);
+    }
 }
 
 

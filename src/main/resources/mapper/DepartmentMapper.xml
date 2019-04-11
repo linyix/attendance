@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -37,7 +38,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, is_deleted, parent_id
+    id, name, is_deleted, parent_id, type
   </sql>
   <select id="selectByExample" parameterType="pojo.DepartmentExample" resultMap="BaseResultMap">
     select
@@ -65,10 +66,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Department" useGeneratedKeys="true">
-    insert into department (name, is_deleted, parent_id
-      )
-    values (#{name,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}
-      )
+    insert into department (name, is_deleted, parent_id, 
+      type)
+    values (#{name,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Department" useGeneratedKeys="true">
     insert into department
@@ -82,6 +83,9 @@
       <if test="parentId != null">
         parent_id,
       </if>
+      <if test="type != null">
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -92,6 +96,9 @@
       </if>
       <if test="parentId != null">
         #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -107,6 +114,9 @@
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -114,7 +124,8 @@
     update department
     set name = #{name,jdbcType=VARCHAR},
       is_deleted = #{isDeleted,jdbcType=BIT},
-      parent_id = #{parentId,jdbcType=INTEGER}
+      parent_id = #{parentId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

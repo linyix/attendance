@@ -8,45 +8,28 @@
     <link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <script src="/js/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
-    <SCRIPT LANGUAGE="JavaScript">
-        var zTreeObj;
-        // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-        var setting = {
-            view :{
-                showIcon:false
-            }
-        };
-        // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-        var zNodes = [
-            {name:"test1", open:true, children:[
-                    {name:"test1_1"}, {name:"test1_2"}]},
-            {name:"test2", open:true, children:[
-                    {name:"test2_1"}, {name:"test2_2"}]}
-        ];
-        $(document).ready(function(){
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        });
-    </SCRIPT>
 </head>
 <body class="layui-layout-body">
+
+
 <div class="layui-layout layui-layout-admin" >
     <div class="layui-header">
         <div class="layui-logo" style="font-weight: lighter;font-size: 17px;"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航）
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item"><a href="home" target="iframe_a">主页</a></li>
+            <li class="layui-nav-item"><a href="myinfo" target="iframe_a">个人信息</a></li>
+            <li class="layui-nav-item"><a href="myattendance" target="iframe_a">签到记录</a></li>
             <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
+                <a href="javascript:;">申请</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
+                    <dd><a href="myleavee" target="iframe_a">请假</a></dd>
+                    <dd><a href="/myGoout" target="iframe_a">外出</a></dd>
+                    <dd><a href="myovertime" target="iframe_a">加班</a></dd>
                 </dl>
             </li>
+            <li class="layui-nav-item"><a href="mycount" target="iframe_a">考勤统计</a></li>
         </ul>
-        -->
+
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -54,48 +37,16 @@
                     ${user.name}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="">个人信息</a></dd>
+                    <dd><a href="">密码设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="/logout">注销</a></li>
         </ul>
     </div>
 
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">部门管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="employee" target="iframe_a">员工管理</a></dd>
-                        <dd><a href="department" target="iframe_a">部门设置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">考勤管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="clazz" target="iframe_a">班次管理</a></dd>
-                        <dd><a href="schedule" target="iframe_a">排班管理</a></dd>
-                        <dd><a href="leavee" target="iframe_a">请假审批</a></dd>
-                        <dd><a href="department" target="iframe_a">外出审批</a></dd>
-                        <dd><a href="department" target="iframe_a">加班审批</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">考勤统计</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="department/countall" target="iframe_a">部门统计</a></dd>
-                        <dd><a href="department" target="iframe_a">员工统计</a></dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="layui-body">
-        <iframe src="department" name="iframe_a" style="width: 100%;height: 100%;border-width: 0;background-color: #fbfbfb;"></iframe>
+    <div class="layui-body" style="left:20px">
+        <iframe src="home" name="iframe_a" style="width: 100%;height: 100%;border-width: 0;background-color: #fbfbfb;"></iframe>
 
         <!--
         <table id="demo" lay-filter="test"></table>

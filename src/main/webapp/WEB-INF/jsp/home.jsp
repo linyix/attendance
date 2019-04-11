@@ -16,7 +16,7 @@
                 right: ''
             },
             locale:'zh-cn',
-            defaultDate: '2019-04-12',
+            defaultDate: '${today}',
             navLinks: true, // can click day/week names to navigate views
             editable: true,
             eventLimit: true, // allow "more" link when too many events
@@ -45,11 +45,12 @@
 </script>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-sm12 layui-col-md6 layui-col-lg6">
+        <div class="layui-col-sm12 layui-col-md6 layui-col-lg6" style="font-size:large;">
             <div class="layui-card" style="margin-top: 20px">
                 <div class="layui-card-body mini-bar">
                     <div>
                         <p>欢迎来到员工考勤管理系统</p>
+                        <br/>
                         <p>
                             <c:if test="${!empty clazz}">今日班次为${clazz.name}:
                                 <fmt:formatDate value="${clazz.startTime}" pattern="HH:mm"/>-
@@ -57,7 +58,7 @@
                              </c:if>
                             <c:if test="${empty clazz}">今日未排班</c:if>
                         </p>
-                        <p>早班 xxx 午班 xxx 放下面</p>
+                        <br/>
                         <c:if test="${cancheckon}">
                             <button id="checkin" class="layui-btn layui-btn-radius layui-btn-normal">
                                 上班打卡
@@ -88,8 +89,8 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-card">
-                <div class="layui-card-header">所在部门:${department.name}  班次信息</div>
+            <div class="layui-card" style="margin-top: 75px">
+                <div class="layui-card-header" style="font-size: large;">所在部门:${department.name}  班次信息</div>
                 <div class="layui-card-body">
                     <form class="layui-form layui-form-pane" action="">
                         <c:forEach items="${clazzes}" var="c">

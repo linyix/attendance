@@ -9,6 +9,8 @@ public class Department {
 
     private Integer parentId;
 
+    private Integer type;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class Department {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

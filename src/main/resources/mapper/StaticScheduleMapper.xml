@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.StaticScheduleMapper">
+  <resultMap id="BaseResultMap" type="pojo.StaticSchedule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="day1" jdbcType="INTEGER" property="day1" />
+    <result column="day2" jdbcType="INTEGER" property="day2" />
+    <result column="day3" jdbcType="INTEGER" property="day3" />
+    <result column="day4" jdbcType="INTEGER" property="day4" />
+    <result column="day5" jdbcType="INTEGER" property="day5" />
+    <result column="day6" jdbcType="INTEGER" property="day6" />
+    <result column="day7" jdbcType="INTEGER" property="day7" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, department_id, day1, day2, day3, day4, day5, day6, day7
+  </sql>
+  <select id="selectByExample" parameterType="pojo.StaticScheduleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from static_schedule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from static_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from static_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.StaticSchedule" useGeneratedKeys="true">
+    insert into static_schedule (department_id, day1, day2, 
+      day3, day4, day5, day6, 
+      day7)
+    values (#{departmentId,jdbcType=INTEGER}, #{day1,jdbcType=INTEGER}, #{day2,jdbcType=INTEGER}, 
+      #{day3,jdbcType=INTEGER}, #{day4,jdbcType=INTEGER}, #{day5,jdbcType=INTEGER}, #{day6,jdbcType=INTEGER}, 
+      #{day7,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.StaticSchedule" useGeneratedKeys="true">
+    insert into static_schedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="day1 != null">
+        day1,
+      </if>
+      <if test="day2 != null">
+        day2,
+      </if>
+      <if test="day3 != null">
+        day3,
+      </if>
+      <if test="day4 != null">
+        day4,
+      </if>
+      <if test="day5 != null">
+        day5,
+      </if>
+      <if test="day6 != null">
+        day6,
+      </if>
+      <if test="day7 != null">
+        day7,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="day1 != null">
+        #{day1,jdbcType=INTEGER},
+      </if>
+      <if test="day2 != null">
+        #{day2,jdbcType=INTEGER},
+      </if>
+      <if test="day3 != null">
+        #{day3,jdbcType=INTEGER},
+      </if>
+      <if test="day4 != null">
+        #{day4,jdbcType=INTEGER},
+      </if>
+      <if test="day5 != null">
+        #{day5,jdbcType=INTEGER},
+      </if>
+      <if test="day6 != null">
+        #{day6,jdbcType=INTEGER},
+      </if>
+      <if test="day7 != null">
+        #{day7,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.StaticSchedule">
+    update static_schedule
+    <set>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="day1 != null">
+        day1 = #{day1,jdbcType=INTEGER},
+      </if>
+      <if test="day2 != null">
+        day2 = #{day2,jdbcType=INTEGER},
+      </if>
+      <if test="day3 != null">
+        day3 = #{day3,jdbcType=INTEGER},
+      </if>
+      <if test="day4 != null">
+        day4 = #{day4,jdbcType=INTEGER},
+      </if>
+      <if test="day5 != null">
+        day5 = #{day5,jdbcType=INTEGER},
+      </if>
+      <if test="day6 != null">
+        day6 = #{day6,jdbcType=INTEGER},
+      </if>
+      <if test="day7 != null">
+        day7 = #{day7,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.StaticSchedule">
+    update static_schedule
+    set department_id = #{departmentId,jdbcType=INTEGER},
+      day1 = #{day1,jdbcType=INTEGER},
+      day2 = #{day2,jdbcType=INTEGER},
+      day3 = #{day3,jdbcType=INTEGER},
+      day4 = #{day4,jdbcType=INTEGER},
+      day5 = #{day5,jdbcType=INTEGER},
+      day6 = #{day6,jdbcType=INTEGER},
+      day7 = #{day7,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

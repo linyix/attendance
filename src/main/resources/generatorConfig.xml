@@ -120,6 +120,12 @@
             <generatedKey column="id" sqlStatement="JDBC"/>
 
         </table>
+        <table tableName="static_schedule" domainObjectName="StaticSchedule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+
+        </table>
 
 
 

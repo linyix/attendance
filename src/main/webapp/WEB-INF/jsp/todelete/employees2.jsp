@@ -2,42 +2,53 @@
          pageEncoding="UTF-8" import="java.util.*"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="include/header.jsp"%>
+<%@include file="../include/header.jsp"%>
 
 
 
 
 <div class="workingArea">
 
+    <div>
+        <form method="post" id="listForm" action="trainlist" >
+            姓名 &nbsp;<input  style="margin-right:4%;width: 10%;display: inline-block" name="name" type="text" class="form-control">
+            所在部门&nbsp;
+            <select  style="margin-right:4%;width: 10%;display: inline-block" type="text" name="department" class="form-control">
+                <option selected="selected"   style='display: none' value=''></option>
+                <c:forEach items="${departments}" var="department">
+                    <option value="${department.id}" <c:if test="${!empty classes}"> <c:if test="${klass.id eq classes.id}">selected</c:if> </c:if> > ${department.name}</option>
+                </c:forEach>
+            </select>
+            工号&nbsp;<input  style="margin-right:4%;width: 10%;display: inline-block" name="number" type="text" class="form-control">
+            <button  type="submit" class="btn btn-success">查找</button>
 
+        </form>
+        <button  id="toAddEmployee"  class="btn btn-success">新增</button>
+    </div>
+
+
+    <br>
+    <br>
     <div class="listDataTableDiv">
         <table class="table table-striped table-bordered table-hover  table-condensed bllu">
             <thead>
             <tr class="success">
-                <th>部门名称</th>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>所在部门</th>
                 <th>操作</th>
                 <th><label style="margin-bottom: 0px"><input type="checkbox" onclick="ckAll()" id="allChecks" >全选</label></th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${department}" var="c">
+            <c:forEach items="${vos}" var="c">
 
                 <tr>
-                    <td style="display:none"> ${c.id} </td>
-                    <td>${c.name}</td>
-                    <td>
-                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">编辑</button>
-
-                        <a href="/department/${c.id}/clazz">
-                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">班次</button>
-                        </a>
-
-                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">排班</button>
-
-                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">考勤</button>
-
-                        <button  type="button"  class="toEditEmployee btn btn-sm btn-primary">统计</button>
-                    </td>
+                    <td style="display:none"> ${c.objs["employee"].id} </td>
+                    <td>${c.objs["employee"].number}</td>
+                    <td>${c.objs["employee"].name} </td>
+                    <td>${c.objs["department"].name}</td>
+                    <td><button  type="button"  class="toEditEmployee btn btn-sm btn-primary">编辑</button> </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -56,7 +67,24 @@
                 </div>
                 <form >
                     <div class="modal-body">
-                        <p>部门名称 <input id="editname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工工号 <input id="editnumber" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工姓名 <input id="editname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>密码     <input id="editpassword" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工部门 <select id="editdepartment" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <c:forEach items="${departments}" var="department">
+                                <option value="${department.id}">  ${department.name}</option>
+                            </c:forEach>
+                        </select>
+                        </p>
+
+                        <p>员工性别 <select id="editsex" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
+                        </p>
+                        <p>电话 <input id="edittelephone" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>备注</p><textarea id="editnotes" class="form-control"></textarea>
+
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
@@ -75,11 +103,27 @@
                         <span class="errorMessage"></span>
                     </div>
                     <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">新增部门</h4>
+                    <h4 class="modal-title">新增员工</h4>
                 </div>
                 <form >
                     <div class="modal-body">
-                        <p>部门名称 <input id="addname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工工号 <input id="addnumber" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工姓名 <input id="addname" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>密码     <input id="addpassword" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>员工部门 <select id="adddepartment" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <c:forEach items="${departments}" var="department">
+                                <option value="${department.id}">  ${department.name}</option>
+                            </c:forEach>
+                        </select>
+                        </p>
+
+                        <p>员工性别 <select id="addsex" style="width: 50%;display: inline-block" type="text" class="form-control">
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
+                        </p>
+                        <p>电话 <input id="addtelephone" style="width: 50%;display: inline-block" type="text" class="form-control"></p>
+                        <p>备注</p><textarea id="addnotes" class="form-control"></textarea>
 
                     </div>
                     <div class="modal-footer">
@@ -107,7 +151,7 @@
 
             employeeId = $(this).parent().parent().children("td")[0].innerHTML;
             $("#editError").hide();
-            var url="department/json/"+employeeId;
+            var url="employee/json/"+employeeId;
             $.post(
                 url,
                 function(data) {

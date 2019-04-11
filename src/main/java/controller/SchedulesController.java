@@ -10,15 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pojo.Clazz;
-import pojo.Employee;
-import pojo.Schedules;
-import pojo.ViewObject;
-import service.ClazzService;
-import service.DepartmentService;
-import service.EmployeeService;
-import service.SchedulesService;
+import pojo.*;
+import service.*;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -33,6 +28,10 @@ public class SchedulesController {
     ClazzService clazzService;
     @Autowired
     DepartmentService departmentService;
+    @Autowired
+    LeaveeService leaveeService;
+    @Autowired
+    LeaveeCheckService leaveeCheckService;
 
     String[] weekDays = { "日", "一", "二", "三", "四", "五", "六" };
 
@@ -49,6 +48,15 @@ public class SchedulesController {
     @RequestMapping(value = "department/{did}/schedule",method = RequestMethod.GET)
     public String list(@PathVariable("did") int did, String date, Model model) throws Exception
     {
+       Department departmentstatic = departmentService.get(did);
+
+       if(departmentstatic.getType()==1)
+       {
+           return "staticschedules";
+
+       }
+
+
 
         List<String> dateAndWeek = new ArrayList<>();
         model.addAttribute("dateAndWeek",dateAndWeek);
@@ -161,13 +169,14 @@ public class SchedulesController {
 
     @RequestMapping(value="/myschedule",produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String myschedule(String start,String end) throws Exception
+    public String myschedule(String start, String end, HttpSession session) throws Exception
     {
-        int eid =2;
+        int eid =((Employee)session.getAttribute("user")).getId();
         start =StringUtils.substringBefore(start,"T");
         end =StringUtils.substringBefore(end,"T");
         System.out.println(start+"///"+end);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MM-dd HH:mm");
         Date startDate = simpleDateFormat.parse(start);
         Date endDate = simpleDateFormat.parse(end);
         JSONArray jsonArray = new JSONArray();
@@ -179,6 +188,26 @@ public class SchedulesController {
             map.put("title",clazz.getName());
             map.put("start",simpleDateFormat.format(schedules1.getClazzDate()));
             jsonArray.add(map);
+        }
+        List<Leavee> leavees = leaveeService.listByEid(eid);
+        for(Leavee leavee:leavees)
+        {
+            LeaveeCheck leaveeCheck =leaveeCheckService.getByLeaveeId(leavee.getId());
+            if(leaveeCheck!=null&&leaveeCheck.getPass())
+            {
+                Map<String,Object> map = new HashMap<>();
+                map.put("title","请假 "+simpleDateFormat2.format(leavee.getStartTime())+"至"+simpleDateFormat2.format(leavee.getEndTime()));
+                map.put("start",simpleDateFormat.format(leavee.getStartTime()));
+
+                Date temp = leavee.getEndTime();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(temp);
+                calendar.add(Calendar.DATE,1);
+
+                map.put("end",simpleDateFormat.format(calendar.getTime()));
+                map.put("color","red");
+                jsonArray.add(map);
+            }
         }
         return jsonArray.toJSONString();
 

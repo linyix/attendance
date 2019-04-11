@@ -96,6 +96,15 @@
                     return '确认密码与密码不一致';
                 }
             },
+            editsecondpwd: function(value) {
+                console.log("sc");
+                console.log(value);
+                console.log($("#editpassword").val());
+                if(value != $("#editpassword").val()){
+                    $("#editpassword2").val("");
+                    return '确认密码与密码不一致';
+                }
+            },
             numberalone:function (value) {
 
                 var numberaloneresult;
@@ -248,10 +257,10 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input id="name"  class="layui-input" type="text" placeholder="账号/姓名/手机号"/>
+                                <input id="name"  class="layui-input" type="text" placeholder="工号"/>
                             </div>
                             <div class="layui-inline">
-                                <input id="timeLimit" class="layui-input" type="text" placeholder="注册时间"/>
+                                <input id="timeLimit" class="layui-input" type="text" placeholder="姓名"/>
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe615;</i>搜索</button>
@@ -361,7 +370,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" >重复密码</label>
             <div class="layui-input-block">
-                <input type="password" id="editpassword2" name="addpassword2"    lay-verify="required|secondpwd" placeholder="" autocomplete="off" class="layui-input">
+                <input type="password" id="editpassword2" name="addpassword2"    lay-verify="required|secondpwd2" placeholder="" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

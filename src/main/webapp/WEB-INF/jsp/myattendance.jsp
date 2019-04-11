@@ -25,6 +25,8 @@
             ,cols: [[ //表头
                 {field: 'employeeNumber', title: '签到人工号'}
                 ,{field: 'employeeName', title: '签到人姓名'}
+                ,{field: 'starttime', title: '上班时间'}
+                ,{field: 'endtime', title: '下班时间'}
                 ,{field: 'checkin', title: '打卡时间'}
                 ,{field: 'checkout', title: '退卡时间'  }
                 ,{field: 'clazzName', title: '班次'  }
