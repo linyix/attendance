@@ -14,9 +14,9 @@
         var laydate = layui.laydate;
         //第一个实例
         laydate.render({
-            elem: '#daterange' //指定元素
-            ,type: 'datetime'
-            ,range: true
+            elem: '#daterange1' //指定元素
+            ,type: 'date'
+            ,range: false
         });
         tableIns =table.render({
             elem: '#demo'
@@ -187,14 +187,13 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input type="text"  class="layui-input" id="daterange">
+                                <input type="text"  class="layui-input" id="daterange1">
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
                             </div>
                         </div>
                     </div>
-
 
                     <div class="layui-fluid">
                         <div class="layui-row layui-col-space15">
@@ -369,19 +368,199 @@
 
                     </div>
 
-
                 </div>
             </div>
         </div>
 
+        <div class="layui-tab-item layui-show">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input type="text"  class="layui-input" id="daterange2">
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch2" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-fluid">
+                        <div class="layui-row layui-col-space15">
+                            <div class="layui-col-sm12 layui-col-md5 layui-col-lg5" >
+                                <div id="week1"  style="height:300px;"></div>
+                                <script type="text/javascript">
+                                    // 基于准备好的dom，初始化echarts实例
+                                    var myChart = echarts.init(document.getElementById('week1'));
+
+                                    // 指定图表的配置项和数据
+                                    var option = {
+                                        tooltip: {
+                                            trigger: 'item',
+                                            formatter: "{a} <br/>{b}: {c} ({d}%)"
+                                        },
+                                        legend: {
+                                            orient: 'vertical',
+                                            x: 'left',
+                                            data:['已出勤','未出勤']
+                                        },
+                                        series: [
+                                            {
+                                                name:'',
+                                                type:'pie',
+                                                radius: ['50%', '70%'],
+                                                color:['#bad7c7','#d9aa98'],
+                                                avoidLabelOverlap: false,
+                                                label: {
+                                                    normal: {
+                                                        show: false,
+                                                        position: 'center'
+                                                    },
+                                                    emphasis: {
+                                                        show: true,
+                                                        textStyle: {
+                                                            fontSize: '30',
+                                                            fontWeight: 'bold'
+                                                        }
+                                                    }
+                                                },
+                                                labelLine: {
+                                                    normal: {
+                                                        show: false
+                                                    }
+                                                },
+                                                data:[
+                                                    {value:12, name:'已出勤'},
+                                                    {value:2, name:'未出勤'}
+                                                ]
+                                            }
+                                        ]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+
+                            </div>
+
+                            <div class="layui-col-sm12 layui-col-md5 layui-col-lg5" style="margin-left: 60px">
+                                <div id="main2" style="height:300px;" ></div>
+                                <script type="text/javascript">
+                                    // 基于准备好的dom，初始化echarts实例
+                                    var myChart = echarts.init(document.getElementById('main2'));
+
+                                    // 指定图表的配置项和数据
+                                    var option = {
+                                        title: {
+                                            text: '考勤统计'
+                                        },
+                                        tooltip: {},
+                                        color:'#9bbcc1',
+                                        legend: {
+                                            data:['人数']
+                                        },
+                                        xAxis: {
+                                            data: ["缺勤","迟到","早退","请假","出差","加班"]
+                                        },
+                                        yAxis: {},
+                                        series: [{
+                                            name: '人数',
+                                            type: 'bar',
+                                            data: [1, 3, 2, 1, 2, 5]
+                                        }]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+                            </div>
+                        </div>
+
+                        <div id="main3"  style="height:350px;"></div>
+                        <script type="text/javascript">
+                            // 基于准备好的dom，初始化echarts实例
+                            var myChart = echarts.init(document.getElementById('main3'));
+
+                            // 指定图表的配置项和数据
+                            var option = {
+                                title: {
+                                    text: '考勤统计变化情况'
+                                },
+                                tooltip: {
+                                    trigger: 'axis'
+                                },
+                                legend: {
+                                    data: ["缺勤","迟到","早退","请假","出差","加班"],
+                                },
+                                grid: {
+                                    left: '3%',
+                                    right: '4%',
+                                    bottom: '3%',
+                                    containLabel: true
+                                },
+                                toolbox: {
+                                    feature: {
+                                        saveAsImage: {}
+                                    }
+                                },
+                                xAxis: {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: ['4/15','4/6','4/7','4/8','4/9','4/10','4/11']
+                                },
+                                yAxis: {
+                                    type: 'value'
+                                },
+                                series: [
+                                    {
+                                        name:'缺勤',
+                                        type:'line',
+                                        stack: '总量',
+                                        data:[2, 0, 2, 3, 4, 3, 2]
+                                    },
+                                    {
+                                        name:'迟到',
+                                        type:'line',
+                                        stack: '总量',
+                                        data:[2, 3, 3, 1, 0, 2, 3]
+                                    },
+                                    {
+                                        name:'早退',
+                                        type:'line',
+                                        stack: '总量',
+                                        data:[3, 1, 4, 3, 3, 5, 2]
+                                    },
+                                    {
+                                        name:'请假',
+                                        type:'line',
+                                        stack: '总量',
+                                        data:[2, 2, 1, 3, 2, 1, 1]
+                                    },
+                                    {
+                                        name:'出差',
+                                        type:'line',
+                                        stack: '总量',
+                                        data:[2, 2, 4, 4, 3, 2, 2]
+                                    },
+                                    {
+                                        name:'加班',
+                                        type:'line',
+                                        stack: '总量',
+                                        data:[1, 3, 6, 4, 2, 4, 5]
+                                    }
+                                ]
+                            };
 
 
+                            // 使用刚指定的配置项和数据显示图表。
+                            myChart.setOption(option);
+                        </script>
 
+                    </div>
 
-
-
-
-        <div class="layui-tab-item">内容2</div>
+                </div>
+            </div>
         <div class="layui-tab-item">内容3</div>
         <div class="layui-tab-item">内容4</div>
         <div class="layui-tab-item">内容5</div>
