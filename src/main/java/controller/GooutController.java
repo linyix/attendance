@@ -46,7 +46,7 @@ public class GooutController {
         /*
         int eid =1;
         model.addAttribute("tree",departmentService.getTreeJson(eid));*/
-        return "Goout";
+        return "goout";
     }
     @RequestMapping(value = "/goouts/{checked}/json",produces = "application/json; charset=utf-8")
     @ResponseBody

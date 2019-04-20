@@ -15,7 +15,8 @@
         //第一个实例
         laydate.render({
             elem: '#daterange' //指定元素
-            ,type: 'month'
+            ,type: 'date'
+            ,range: true
         });
 
 

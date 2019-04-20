@@ -46,15 +46,17 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">工号</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" value="${e.number}" placeholder="请输入标题" class="layui-input" disabled="disabled">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">工号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" autocomplete="off" value="${e.number}" placeholder="请输入标题" class="layui-input" disabled="disabled">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">所在部门</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" value="${d.name}" placeholder="请输入标题" class="layui-input" disabled="disabled">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">所在部门</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" autocomplete="off" value="${d.name}" placeholder="请输入标题" class="layui-input" disabled="disabled">
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">

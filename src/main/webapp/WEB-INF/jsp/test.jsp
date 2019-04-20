@@ -31,7 +31,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin" >
     <div class="layui-header">
-        <div class="layui-logo" style="font-weight: lighter;font-size: 17px;"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
+        <div class="layui-logo" style="font-weight: lighter;font-size: 17px;color: #eeeeee"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
         <!-- 头部区域（可配合layui已有的水平导航）
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -71,6 +71,7 @@
                     <dl class="layui-nav-child">
                         <dd><a href="employee" target="iframe_a">员工管理</a></dd>
                         <dd><a href="department" target="iframe_a">部门设置</a></dd>
+                        <dd><a href="manage" target="iframe_a">权限管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -79,15 +80,15 @@
                         <dd><a href="clazz" target="iframe_a">班次管理</a></dd>
                         <dd><a href="schedule" target="iframe_a">排班管理</a></dd>
                         <dd><a href="leavee" target="iframe_a">请假审批</a></dd>
-                        <dd><a href="department" target="iframe_a">外出审批</a></dd>
-                        <dd><a href="department" target="iframe_a">加班审批</a></dd>
+                        <dd><a href="goout" target="iframe_a">外出审批</a></dd>
+                        <dd><a href="overtime" target="iframe_a">加班审批</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">考勤统计</a>
                     <dl class="layui-nav-child">
                         <dd><a href="department/countall" target="iframe_a">部门统计</a></dd>
-                        <dd><a href="department" target="iframe_a">员工统计</a></dd>
+                        <dd><a href="department/count" target="iframe_a">员工统计</a></dd>
                     </dl>
                 </li>
             </ul>

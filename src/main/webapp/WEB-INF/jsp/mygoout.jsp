@@ -169,9 +169,9 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="check">查看审批</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="check">查看审批</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <div class="layui-fluid">
@@ -180,7 +180,7 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>添加</button>
+                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>外出申请</button>
                             </div>
                         </div>
                     </div>

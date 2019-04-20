@@ -209,6 +209,17 @@ public class SchedulesController {
                 jsonArray.add(map);
             }
         }
+        Map<String,Object> map = new HashMap<>();
+        map.put("title","外出 "+"04-21 08:00"+"至"+"04-23 08:00");
+        map.put("start","2019-04-21");
+        map.put("end","2019-04-24");
+        map.put("color","green");
+        jsonArray.add(map);
+        Map<String,Object> map2 = new HashMap<>();
+        map2.put("title","加班 180分钟");
+        map2.put("start","2019-04-11");
+        map2.put("color","#9933FF");
+        jsonArray.add(map2);
         return jsonArray.toJSONString();
 
     }

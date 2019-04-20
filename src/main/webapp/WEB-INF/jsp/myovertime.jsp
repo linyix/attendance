@@ -16,18 +16,17 @@
         laydate.render({
             elem: '#daterange' //指定元素
             ,type: 'datetime'
-            ,range: true
         });
         tableIns =table.render({
             elem: '#demo'
-            ,url: 'myleavee/json' //数据接口
+            ,url: 'myovertime/json' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
                 {field: 'id', title: '编号', }
                 ,{field: 'employeeNumber', title: '申请人工号'}
                 ,{field: 'employeeName', title: '申请人姓名'}
-                ,{field: 'starttime', title: '开始时间'}
-                ,{field: 'endtime', title: '结束时间'  }
+                ,{field: 'starttime', title: '加班时间'}
+                ,{field: 'minutes', title: '加班时长(分钟)'  }
                 ,{field: 'passed', title: '状态'  }
                 ,{align:'center', toolbar: '#barDemo'}
             ]]
@@ -53,7 +52,7 @@
         });
 
         form.on('submit(save)', function (data) {
-            var page = "/myleavee";
+            var page = "/myovertime";
             $.post(
                 page,
                 {"daterange":$("#daterange").val(),"notes":$("#addnotes").val()},
@@ -96,14 +95,14 @@
 
     function onEditBtn(lid){
         //页面层-自定义
-        var url="leavee/"+lid+"/json";
+        var url="overtime/"+lid+"/json";
         $.post(
             url,
             function(data) {
                 console.log(data);
                 var json=JSON.parse(data);
                 $("#editdaterange").val(json.start+" - "+json.end);
-                $("#editnotes").val(json.leavee.notes);
+                $("#editnotes").val(json.overtime.notes);
                 editIndex= layer.open({
                     type: 1,
                     title:"新建配置",
@@ -125,7 +124,7 @@
 
     function onCheckBtn(lid){
         //页面层-自定义
-        var url="leavee/"+lid+"/leaveecheck/json";
+        var url="overtime/"+lid+"/overtimecheck/json";
         $.post(
             url,
             function(data) {
@@ -139,8 +138,8 @@
                     var json=JSON.parse(data);
                     $("#checkName").val(json.employee.name);
                     $("#checkNumber").val(json.employee.number);
-                    $("#checknotes").val(json.leaveecheck.notes);
-                    if(json.leaveecheck.pass ==1)
+                    $("#checknotes").val(json.overtimecheck.notes);
+                    if(json.overtimecheck.pass ==1)
                         $("#checkType").val("通过");
                     else
                         $("#checkType").val("未通过");
@@ -180,7 +179,7 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>请假申请</button>
+                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>加班申请</button>
                             </div>
                         </div>
                     </div>

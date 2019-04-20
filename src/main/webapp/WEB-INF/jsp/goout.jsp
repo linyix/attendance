@@ -20,7 +20,7 @@
         });
         tableIns =table.render({
             elem: '#demo'
-            ,url: 'myleavee/json' //数据接口
+            ,url: 'goouts/false/json' //数据接口
             ,page: true //开启分页
             ,cols: [[ //表头
                 {field: 'id', title: '编号', }
@@ -53,7 +53,7 @@
         });
 
         form.on('submit(save)', function (data) {
-            var page = "/myleavee";
+            var page = "/mygoout";
             $.post(
                 page,
                 {"daterange":$("#daterange").val(),"notes":$("#addnotes").val()},
@@ -96,14 +96,14 @@
 
     function onEditBtn(lid){
         //页面层-自定义
-        var url="leavee/"+lid+"/json";
+        var url="goout/"+lid+"/json";
         $.post(
             url,
             function(data) {
                 console.log(data);
                 var json=JSON.parse(data);
                 $("#editdaterange").val(json.start+" - "+json.end);
-                $("#editnotes").val(json.leavee.notes);
+                $("#editnotes").val(json.goout.notes);
                 editIndex= layer.open({
                     type: 1,
                     title:"新建配置",
@@ -125,7 +125,7 @@
 
     function onCheckBtn(lid){
         //页面层-自定义
-        var url="leavee/"+lid+"/leaveecheck/json";
+        var url="goout/"+lid+"/gooutcheck/json";
         $.post(
             url,
             function(data) {
@@ -139,8 +139,51 @@
                     var json=JSON.parse(data);
                     $("#checkName").val(json.employee.name);
                     $("#checkNumber").val(json.employee.number);
-                    $("#checknotes").val(json.leaveecheck.notes);
-                    if(json.leaveecheck.pass ==1)
+                    $("#checknotes").val(json.gooutcheck.notes);
+                    if(json.gooutcheck.pass ==1)
+                        $("#checkType").val("通过");
+                    else
+                        $("#checkType").val("未通过");
+                    checkIndex= layer.open({
+                        type: 1,
+                        title: "新建配置",
+                        closeBtn: false,
+                        shift: 2,
+                        area: ['530px', '420px'],
+                        shadeClose: true,
+                        // btn: ['新增', '取消'],
+                        // btnAlign: 'c',
+                        content: $("#check-main"),
+                        success: function (layero, index) {
+                        },
+                        yes: function () {
+
+                        }
+                    });
+                }
+            })
+
+    };
+    function onSearchBtn(){
+        //页面层-自定义
+
+
+        var url="goout/"+lid+"/gooutcheck/json";
+        $.post(
+            url,
+            function(data) {
+                console.log(data);
+                if(data === "notexist")
+                {
+                    layer.msg("该申请未审批");
+                }
+                else
+                {
+                    var json=JSON.parse(data);
+                    $("#checkName").val(json.employee.name);
+                    $("#checkNumber").val(json.employee.number);
+                    $("#checknotes").val(json.gooutcheck.notes);
+                    if(json.gooutcheck.pass ==1)
                         $("#checkType").val("通过");
                     else
                         $("#checkType").val("未通过");
@@ -170,8 +213,8 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn  layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn  layui-btn-xs" lay-event="check">查看审批</a>
-    <a class="layui-btn  layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="check">审批</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
 <div class="layui-fluid">
@@ -180,7 +223,13 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>请假申请</button>
+                                <select id="addsex" name="addsex" >
+                                    <option value="false">未审批</option>
+                                    <option value="true">已审批</option>
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onSearchBtn()"><i class="layui-icon">&#xe654;</i>搜索</button>
                             </div>
                         </div>
                     </div>

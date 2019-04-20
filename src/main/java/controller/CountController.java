@@ -1,12 +1,17 @@
 package controller;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.*;
 import service.*;
 
@@ -191,10 +196,90 @@ public class CountController {
         return "";
     }
 
-    @RequestMapping("department/{did}/count")
-    public String departmentCount() throws Exception
+    @RequestMapping("department/count")
+    public String departmentCountTree(Model model) throws Exception
     {
-        return "";
+        int eid=1;
+        model.addAttribute("tree",departmentService.getTreeJson(eid));
+        return "departmentCountEvery";
+    }
+    @RequestMapping(value="department/{did}/count",produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String departmentCount(@PathVariable("did") int did ,int page, int limit) throws Exception
+    {
+        JSONArray jsonArray = new JSONArray();
+        Map<String,Object > map = new HashMap<>();
+        map.put("number","b0001");
+        map.put("name","张三");
+        map.put("schedule",16);
+        map.put("late",1);
+        map.put("leaveeearly",2);
+        map.put("uncheckon",2);
+        map.put("uncheckout",2);
+        map.put("leavee",2);
+        map.put("goout",2);
+        map.put("overtime",60);
+        jsonArray.add(map);
+
+        map = new HashMap<>();
+        map.put("number","b0003");
+        map.put("name","赵一");
+        map.put("schedule",16);
+        map.put("late",0);
+        map.put("leaveeearly",1);
+        map.put("uncheckon",2);
+        map.put("uncheckout",2);
+        map.put("leavee",2);
+        map.put("goout",2);
+        map.put("overtime",120);
+        jsonArray.add(map);
+
+        map = new HashMap<>();
+        map.put("number","b0004");
+        map.put("name","赵二");
+        map.put("schedule",16);
+        map.put("late",0);
+        map.put("leaveeearly",1);
+        map.put("uncheckon",2);
+        map.put("uncheckout",1);
+        map.put("leavee",2);
+        map.put("goout",2);
+        map.put("overtime",240);
+        jsonArray.add(map);
+
+        map = new HashMap<>();
+        map.put("number","b0005");
+        map.put("name","赵五");
+        map.put("schedule",16);
+        map.put("late",0);
+        map.put("leaveeearly",1);
+        map.put("uncheckon",2);
+        map.put("uncheckout",1);
+        map.put("leavee",3);
+        map.put("goout",0);
+        map.put("overtime",240);
+        jsonArray.add(map);
+
+        map = new HashMap<>();
+        map.put("number","b0006");
+        map.put("name","赵六");
+        map.put("schedule",16);
+        map.put("late",0);
+        map.put("leaveeearly",0);
+        map.put("uncheckon",2);
+        map.put("uncheckout",0);
+        map.put("leavee",2);
+        map.put("goout",2);
+        map.put("overtime",300);
+        jsonArray.add(map);
+
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","");
+        json.put("count",5);
+        json.put("data", jsonArray);
+        System.out.println(json.toJSONString());
+        return json.toJSONString();
     }
 
     @RequestMapping("department/{did}/countall")

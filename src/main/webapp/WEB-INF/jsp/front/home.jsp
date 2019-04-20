@@ -14,7 +14,7 @@
 
 <div class="layui-layout layui-layout-admin" >
     <div class="layui-header">
-        <div class="layui-logo" style="font-weight: lighter;font-size: 17px;"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
+        <div class="layui-logo" style="font-weight: lighter;font-size: 17px;color: #eeeeee"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="home" target="iframe_a">主页</a></li>
             <li class="layui-nav-item"><a href="myinfo" target="iframe_a">个人信息</a></li>

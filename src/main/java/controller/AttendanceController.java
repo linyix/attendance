@@ -51,7 +51,7 @@ public class AttendanceController {
         int eid =((Employee)session.getAttribute("user")).getId();
         if(limit ==0)
             limit=10;
-        PageHelper.offsetPage(page-1, limit);
+        PageHelper.startPage(page-1, limit);
 
         JSONArray jsonArray = new JSONArray();
         List<Schedules> scheduleses = schedulesService.listByeid(eid);
