@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletResponse;
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
         {
+            /*
             Employee employeetemp = new Employee();
             employeetemp.setId(2);
             employeetemp.setName("张五");
             request.getSession().setAttribute("user",employeetemp);
+            */
             Employee employee = (Employee) request.getSession().getAttribute("user");
             if(employee==null)
             {

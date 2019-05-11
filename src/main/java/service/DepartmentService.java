@@ -100,4 +100,13 @@ public class DepartmentService {
         }
         return false;
     }
+
+    public void add(Department department)
+    {
+        departmentMapper.insert(department);
+    }
+    public void  delete(int id)
+    {
+        departmentMapper.deleteByPrimaryKey(id);
+    }
 }

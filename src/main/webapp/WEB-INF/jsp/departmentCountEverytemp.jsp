@@ -36,7 +36,7 @@
         chooseDid=treeNode.did;
         chooseNode = treeNode;
         tableIns.reload( {
-            url: '/department/'+chooseDid+'/employee'
+            url: '/department/'+chooseDid+'/count'
         });
     };
     function zTreeOnClick2(event, treeId, treeNode) {
@@ -55,13 +55,19 @@
         tableIns =table.render({
             elem: '#demo'
             ,url: '' //数据接口
-            ,toolbar:''
             ,page: true //开启分页
             ,cols: [[ //表头
-                {field: 'number', title: '工号', sort: true}
-                ,{field: 'name', title: '姓名'}
-                ,{field: 'sex', title: '性别',  sort: true}
-                ,{align:'center', toolbar: '#barDemo'}
+                {field: 'number', title: '工号', width:95,sort: true}
+                ,{field: 'name', title: '姓名',width:95,}
+                ,{field: 'schedule', title: '排班次数', width:95, sort: true}
+                ,{field: 'late', title: '迟到次数',width:95,  sort: true}
+                ,{field: 'leaveeearly', title: '早退次数',width:95,  sort: true}
+                ,{field: 'uncheckon', title: '未打卡次数',width:120,  sort: true}
+                ,{field: 'uncheckout', title: '未退卡次数',width:120,  sort: true}
+                ,{field: 'leavee', title: '请假次数', width:95, sort: true}
+                ,{field: 'goout', title: '外出次数',width:95,  sort: true}
+                ,{field: 'overtime', title: '加班时长',width:95,  sort: true}
+                ,{align:'center',width:75, toolbar: '#barDemo'}
             ]]
 
         });
@@ -239,8 +245,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="detail">查看|编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
 </script>
 
 <div class="layui-fluid">
@@ -258,14 +263,13 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input id="name"  class="layui-input" type="text" placeholder="工号"/>
-                            </div>
-                            <div class="layui-inline">
-                                <input id="timeLimit" class="layui-input" type="text" placeholder="姓名"/>
+                                <input id="name"  class="layui-input" type="text" placeholder="时间范围"/>
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe615;</i>搜索</button>
-                                <button id="btnAdd" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe654;</i>添加</button>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btndc" class="layui-btn icon-btn" onclick="onAddBtn()"><i class="layui-icon">&#xe62d;</i>导出</button>
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class LeaveeService {
+public class HolidayService {
     @Autowired
     LeaveeMapper leaveeMapper;
     @Autowired

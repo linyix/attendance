@@ -26,6 +26,7 @@
                 {field: 'id', title: '编号', }
                 ,{field: 'employeeNumber', title: '申请人工号'}
                 ,{field: 'employeeName', title: '申请人姓名'}
+                ,{field: 'departmentname', title: '申请人所在部门'}
                 ,{field: 'starttime', title: '开始时间'}
                 ,{field: 'endtime', title: '结束时间'  }
                 ,{field: 'passed', title: '状态'  }
@@ -227,6 +228,12 @@
                                     <option value="false">未审批</option>
                                     <option value="true">已审批</option>
                                 </select>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="name"  class="layui-input" type="text" placeholder="员工姓名"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="timeLimit" class="layui-input" type="text" placeholder="所属部门"/>
                             </div>
                             <div class="layui-inline">
                                 <button id="btnAdd" class="layui-btn icon-btn" onclick="onSearchBtn()"><i class="layui-icon">&#xe654;</i>搜索</button>

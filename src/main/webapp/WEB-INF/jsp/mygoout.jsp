@@ -78,7 +78,7 @@
         //页面层-自定义
         addIndex= layer.open({
             type: 1,
-            title:"新建配置",
+            title:"外出申请",
             closeBtn: false,
             shift: 2,
             area: ['530px', '420px'],

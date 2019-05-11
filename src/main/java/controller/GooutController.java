@@ -77,8 +77,10 @@ public class GooutController {
             map.put("id",Goout.getId());
             map.put("starttime",simpleDateFormat.format(Goout.getStartTime()));
             map.put("endtime",simpleDateFormat.format(Goout.getEndTime()));
-            map.put("employeeNumber",Goout.getEmployeeId());
-            map.put("employeeName",employeeService.get(Goout.getEmployeeId()).getName());
+            Employee employee =employeeService.get(Goout.getEmployeeId());
+            map.put("departmentname",departmentService.get(employee.getDepartmentId()).getName());
+            map.put("employeeName",employee.getName());
+            map.put("employeeNumber",employee.getNumber());
             GooutCheck GooutCheck = gooutCheckService.getByGooutId(Goout.getId());
             if(GooutCheck==null)
             {

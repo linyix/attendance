@@ -17,6 +17,7 @@ import service.DepartmentService;
 import service.EmployeeService;
 import service.ManageService;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,16 +41,26 @@ public class DepartmentController {
     }
 
     @RequestMapping("department")
-    public String list(Model model)
+    public String list(Model model,HttpSession session)
     {
-        //todo getuser
-        int eid =1;
-        //todo level
-
+        int eid =(int)session.getAttribute("user");
         model.addAttribute("tree",departmentService.getTreeJson(eid));
-
-
         return "department";
+    }
+
+    @RequestMapping("departmentAdd")
+    @ResponseBody
+    public String add(Model model,HttpSession session,Department department)
+    {
+        departmentService.add(department);
+        return "true";
+    }
+    @RequestMapping("departmentDelete")
+    @ResponseBody
+    public String delete(int id)
+    {
+        departmentService.delete(id);
+        return "true";
     }
 
 }

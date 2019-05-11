@@ -67,6 +67,7 @@
                 ,{field: 'leavee', title: '请假次数',  sort: true}
                 ,{field: 'goout', title: '外出次数',  sort: true}
                 ,{field: 'overtime', title: '加班时长',  sort: true}
+                ,{align:'center', toolbar: '#barDemo'}
             ]]
 
         });
@@ -244,8 +245,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="detail">查看|编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
 </script>
 
 <div class="layui-fluid">

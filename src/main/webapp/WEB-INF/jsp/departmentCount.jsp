@@ -314,11 +314,13 @@
                                     }
                                 },
                                 xAxis: {
+                                    name : '时间',
                                     type: 'category',
                                     boundaryGap: false,
-                                    data: ['4/15','4/6','4/7','4/8','4/9','4/10','4/11']
+                                    data: ['4/5','4/6','4/7','4/8','4/9','4/10','4/11']
                                 },
                                 yAxis: {
+                                    name : '人次',
                                     type: 'value'
                                 },
                                 series: [
@@ -326,37 +328,34 @@
                                         name:'缺勤',
                                         type:'line',
                                         stack: '总量',
-                                        data:[2, 0, 2, 3, 4, 3, 2]
+                                        data:[2, 0, 2, 3, 4, 3, 2],
+                                        lineStyle: {
+                                            normal: {
+                                                type: 'dotted'
+                                            }
+                                        },
                                     },
                                     {
                                         name:'迟到',
                                         type:'line',
                                         stack: '总量',
-                                        data:[2, 3, 3, 1, 0, 2, 3]
+                                        data:[2, 3, 3, 1, 0, 2, 3],
+                                        lineStyle: {
+                                            normal: {
+                                                type: 'solid'
+                                            }
+                                        },
                                     },
                                     {
                                         name:'早退',
                                         type:'line',
                                         stack: '总量',
-                                        data:[3, 1, 4, 3, 3, 5, 2]
-                                    },
-                                    {
-                                        name:'请假',
-                                        type:'line',
-                                        stack: '总量',
-                                        data:[2, 2, 1, 3, 2, 1, 1]
-                                    },
-                                    {
-                                        name:'出差',
-                                        type:'line',
-                                        stack: '总量',
-                                        data:[2, 2, 4, 4, 3, 2, 2]
-                                    },
-                                    {
-                                        name:'加班',
-                                        type:'line',
-                                        stack: '总量',
-                                        data:[1, 3, 6, 4, 2, 4, 5]
+                                        data:[3, 1, 4, 3, 3, 5, 2],
+                                        lineStyle: {
+                                            normal: {
+                                                type: 'dashed'
+                                            }
+                                        },
                                     }
                                 ]
                             };

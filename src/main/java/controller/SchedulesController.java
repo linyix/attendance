@@ -32,6 +32,14 @@ public class SchedulesController {
     LeaveeService leaveeService;
     @Autowired
     LeaveeCheckService leaveeCheckService;
+    @Autowired
+    GooutService gooutService;
+    @Autowired
+    GooutCheckService gooutCheckService;
+    @Autowired
+    OvertimeService overtimeService;
+    @Autowired
+    OvertimeCheckService ovettimeCheckService;
 
     String[] weekDays = { "日", "一", "二", "三", "四", "五", "六" };
 
@@ -209,17 +217,42 @@ public class SchedulesController {
                 jsonArray.add(map);
             }
         }
-        Map<String,Object> map = new HashMap<>();
-        map.put("title","外出 "+"04-21 08:00"+"至"+"04-23 08:00");
-        map.put("start","2019-04-21");
-        map.put("end","2019-04-24");
-        map.put("color","green");
-        jsonArray.add(map);
-        Map<String,Object> map2 = new HashMap<>();
-        map2.put("title","加班 180分钟");
-        map2.put("start","2019-04-11");
-        map2.put("color","#9933FF");
-        jsonArray.add(map2);
+
+        List<Goout> goouts = gooutService.listByEid(eid);
+        for(Goout goout:goouts)
+        {
+            GooutCheck gooutCheck =gooutCheckService.getByGooutId(goout.getId());
+            if(gooutCheck!=null&&gooutCheck.getPass())
+            {
+                Map<String,Object> map = new HashMap<>();
+                map.put("title","外出 "+simpleDateFormat2.format(goout.getStartTime())+"至"+simpleDateFormat2.format(goout.getEndTime()));
+                map.put("start",simpleDateFormat.format(goout.getStartTime()));
+
+                Date temp = goout.getEndTime();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(temp);
+                calendar.add(Calendar.DATE,1);
+
+                map.put("end",simpleDateFormat.format(calendar.getTime()));
+                map.put("color","green");
+                jsonArray.add(map);
+            }
+        }
+
+        List<Overtime> overtimes = overtimeService.listByEid(eid);
+        for(Overtime overtime:overtimes)
+        {
+            OvertimeCheck overtimeCheck =ovettimeCheckService.getByOvertimeId(overtime.getId());
+            if(overtimeCheck!=null&&overtimeCheck.getPass())
+            {
+                Map<String,Object> map = new HashMap<>();
+                map.put("title","加班 "+overtime.getMinutes()+"分钟");
+                map.put("start",simpleDateFormat.format(overtime.getStartTime()));
+
+                map.put("color","#9933FF");
+                jsonArray.add(map);
+            }
+        }
         return jsonArray.toJSONString();
 
     }

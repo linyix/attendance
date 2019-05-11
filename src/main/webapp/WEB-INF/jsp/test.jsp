@@ -30,7 +30,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin" >
-    <div class="layui-header">
+    <div class="layui-header" >
         <div class="layui-logo" style="font-weight: lighter;font-size: 17px;color: #eeeeee"><i class="layui-icon layui-icon-app"></i>员工考勤系统</div>
         <!-- 头部区域（可配合layui已有的水平导航）
         <ul class="layui-nav layui-layout-left">
@@ -47,9 +47,9 @@
             </li>
         </ul>
         -->
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
+        <ul class="layui-nav layui-layout-right" >
+            <li class="layui-nav-item" >
+                <a href="javascript:;" >
 
                     ${user.name}
                 </a>
@@ -58,7 +58,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="/logout">注销</a></li>
+            <li class="layui-nav-item" ><a href="/logout">注销</a></li>
         </ul>
     </div>
 

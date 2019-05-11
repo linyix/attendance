@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="layui-colla-item">
-                <h2 class="layui-colla-title">有效请假次数    ${leaveesSize}次</h2>
+                <h2 class="layui-colla-title">请假次数: ${leaveesSize}次  时长: 8小时</h2>
                 <div class="layui-colla-content ">
                     <table class="layui-table" lay-skin="line" lay-size="sm">
                         <thead>
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="layui-colla-item">
-                <h2 class="layui-colla-title">有效外出次数    ${gooutsSize}次</h2>
+                <h2 class="layui-colla-title">外出次数:1次  时长: 8小时</h2>
                 <div class="layui-colla-content ">
                     <table class="layui-table" lay-skin="line" lay-size="sm">
                         <thead>
@@ -106,11 +106,11 @@
                 </div>
             </div>
             <div class="layui-colla-item">
-                <h2 class="layui-colla-title">加班时长</h2>
+                <h2 class="layui-colla-title">加班次数:2次  时长: 180分钟</h2>
                 <div class="layui-colla-content ">内容区域</div>
             </div>
             <div class="layui-colla-item">
-                <h2 class="layui-colla-title">迟到次数    ${latesSize}次</h2>
+                <h2 class="layui-colla-title">迟到次数:3次  时长: 34分钟</h2>
                 <div class="layui-colla-content ">
                     <table class="layui-table" lay-skin="line" lay-size="sm">
                         <thead>
@@ -135,7 +135,7 @@
                 </div>
             </div>
             <div class="layui-colla-item">
-                <h2 class="layui-colla-title">早退次数    ${leaveEarlySize}次</h2>
+                <h2 class="layui-colla-title">早退次数:2次  时长: 30分钟</h2>
                 <div class="layui-colla-content ">
                     <table class="layui-table" lay-skin="line" lay-size="sm">
                         <thead>

@@ -78,7 +78,7 @@
         //页面层-自定义
         addIndex= layer.open({
             type: 1,
-            title:"新建配置",
+            title:"请假申请",
             closeBtn: false,
             shift: 2,
             area: ['530px', '420px'],
@@ -106,7 +106,7 @@
                 $("#editnotes").val(json.leavee.notes);
                 editIndex= layer.open({
                     type: 1,
-                    title:"新建配置",
+                    title:"查看",
                     closeBtn: false,
                     shift: 2,
                     area: ['530px', '420px'],

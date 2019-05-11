@@ -79,8 +79,11 @@ public class LeaveeController {
             map.put("id",leavee.getId());
             map.put("starttime",simpleDateFormat.format(leavee.getStartTime()));
             map.put("endtime",simpleDateFormat.format(leavee.getEndTime()));
-            map.put("employeeNumber",leavee.getEmployeeId());
-            map.put("employeeName",employeeService.get(leavee.getEmployeeId()).getName());
+
+            Employee employee =employeeService.get(leavee.getEmployeeId());
+            map.put("departmentname",departmentService.get(employee.getDepartmentId()).getName());
+            map.put("employeeName",employee.getName());
+            map.put("employeeNumber",employee.getNumber());
             LeaveeCheck leaveeCheck = leaveeCheckService.getByLeaveeId(leavee.getId());
             if(leaveeCheck==null)
             {

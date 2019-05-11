@@ -39,6 +39,9 @@ public class CountController {
             
     SimpleDateFormat monthFormat = new SimpleDateFormat("yyyy-MM");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+
     @RequestMapping("mycount")
     public String employeeCount(String month, Model model, HttpSession session) throws Exception
     {
@@ -73,6 +76,7 @@ public class CountController {
         List<Map<String,Object>> unCheckon = new ArrayList<>();
         List<Map<String,Object>> unCheckOut= new ArrayList<>();
         List<Map<String,Object>> schedulesWithClazz= new ArrayList<>();
+        int leaveetime=0,goouttime=0,ovettimetime=0,latetime=0,leaveEarlytime=0;
         for(Schedules schedules:scheduleses)
         {
             Map<String,Object> map = schedulesService.getStartAndEnd(schedules);
@@ -88,7 +92,11 @@ public class CountController {
             {
                 LeaveeCheck leaveeCheck = leaveeCheckService.getByLeaveeId(leavee.getId());
                 if(leaveeCheck!=null&&leaveeCheck.getPass())
+                {
                     leavees.add(leavee);
+                    leaveetime+=(leavee.getEndTime().getTime()-leavee.getStartTime().getTime())/1000/60/60;
+                }
+
             }
             Leavee leavee1 = leaveeService.getByBetweenDateStartAndEnd(eid,scheduleend);
             if(leavee1!=null)
@@ -97,7 +105,11 @@ public class CountController {
                 {
                     LeaveeCheck leaveeCheck = leaveeCheckService.getByLeaveeId(leavee1.getId());
                     if(leaveeCheck!=null&&leaveeCheck.getPass())
+                    {
                         leavees.add(leavee1);
+                        leaveetime+=(leavee1.getEndTime().getTime()-leavee1.getStartTime().getTime())/1000/60/60;
+                    }
+
                 }
             }
 
@@ -107,7 +119,11 @@ public class CountController {
             {
                 GooutCheck gooutCheck = gooutCheckService.getByGooutId(goout.getId());
                 if(gooutCheck!=null&&gooutCheck.getPass())
+                {
                     goouts.add(goout);
+                    goouttime+=(goout.getEndTime().getTime()-goout.getStartTime().getTime())/1000/60/60;
+                }
+
             }
             Goout goout1 = gooutService.getByBetweenDateStartAndEnd(eid,scheduleend);
             if(goout1!=null)
@@ -116,7 +132,11 @@ public class CountController {
                 {
                     GooutCheck gooutCheck = gooutCheckService.getByGooutId(goout1.getId());
                     if(gooutCheck!=null&&gooutCheck.getPass())
+                    {
                         goouts.add(goout1);
+                        goouttime+=(goout1.getEndTime().getTime()-goout1.getStartTime().getTime())/1000/60/60;
+                    }
+
                 }
             }
             //迟到早退
@@ -201,13 +221,15 @@ public class CountController {
     {
         int eid=1;
         model.addAttribute("tree",departmentService.getTreeJson(eid));
-        return "departmentCountEvery";
+        return "departmentCountEverytemp";
     }
     @RequestMapping(value="department/{did}/count",produces = "application/json; charset=utf-8")
     @ResponseBody
     public String departmentCount(@PathVariable("did") int did ,int page, int limit) throws Exception
     {
+
         JSONArray jsonArray = new JSONArray();
+        /*
         Map<String,Object > map = new HashMap<>();
         map.put("number","b0001");
         map.put("name","张三");
@@ -220,59 +242,7 @@ public class CountController {
         map.put("goout",2);
         map.put("overtime",60);
         jsonArray.add(map);
-
-        map = new HashMap<>();
-        map.put("number","b0003");
-        map.put("name","赵一");
-        map.put("schedule",16);
-        map.put("late",0);
-        map.put("leaveeearly",1);
-        map.put("uncheckon",2);
-        map.put("uncheckout",2);
-        map.put("leavee",2);
-        map.put("goout",2);
-        map.put("overtime",120);
-        jsonArray.add(map);
-
-        map = new HashMap<>();
-        map.put("number","b0004");
-        map.put("name","赵二");
-        map.put("schedule",16);
-        map.put("late",0);
-        map.put("leaveeearly",1);
-        map.put("uncheckon",2);
-        map.put("uncheckout",1);
-        map.put("leavee",2);
-        map.put("goout",2);
-        map.put("overtime",240);
-        jsonArray.add(map);
-
-        map = new HashMap<>();
-        map.put("number","b0005");
-        map.put("name","赵五");
-        map.put("schedule",16);
-        map.put("late",0);
-        map.put("leaveeearly",1);
-        map.put("uncheckon",2);
-        map.put("uncheckout",1);
-        map.put("leavee",3);
-        map.put("goout",0);
-        map.put("overtime",240);
-        jsonArray.add(map);
-
-        map = new HashMap<>();
-        map.put("number","b0006");
-        map.put("name","赵六");
-        map.put("schedule",16);
-        map.put("late",0);
-        map.put("leaveeearly",0);
-        map.put("uncheckon",2);
-        map.put("uncheckout",0);
-        map.put("leavee",2);
-        map.put("goout",2);
-        map.put("overtime",300);
-        jsonArray.add(map);
-
+    */
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","");

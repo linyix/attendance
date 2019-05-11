@@ -79,8 +79,12 @@ public class OvertimeController {
             map.put("id",overtime.getId());
             map.put("starttime",simpleDateFormat2.format(overtime.getStartTime()));
             map.put("minutes",overtime.getMinutes());
-            map.put("employeeNumber",overtime.getEmployeeId());
-            map.put("employeeName",employeeService.get(overtime.getEmployeeId()).getName());
+
+            Employee employee =employeeService.get(overtime.getEmployeeId());
+            map.put("departmentname",departmentService.get(employee.getDepartmentId()).getName());
+            map.put("employeeName",employee.getName());
+            map.put("employeeNumber",employee.getNumber());
+
             OvertimeCheck overtimeCheck = overtimeCheckService.getByOvertimeId(overtime.getId());
             if(overtimeCheck==null)
             {
